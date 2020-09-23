@@ -25,6 +25,8 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     "space-before-function-paren": ["error", "never"],
+    'class-method-use-this': 'off',
+    "indent": ["error", 2, { "ignoreComments": true, "MemberExpression": 1 }]
   },
   settings: {
     'import/resolver': {

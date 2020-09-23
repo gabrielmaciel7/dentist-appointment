@@ -1,0 +1,10 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5433,
+  "username": "postgres",
+  "password": "docker",
+  "database": "dentist-appointment",
+  "migrations": ["./src/database/migrations/*.ts"],
+  "cli": { "migrationsDir": "./src/database/migrations" }
+}
