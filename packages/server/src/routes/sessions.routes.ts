@@ -2,7 +2,7 @@
 import { Router } from 'express'
 
 import AuthenticateUserService from '../services/AuthenticateUserService'
-import { authenticateUserValidator } from './../validators/usersValidator'
+import { authenticateUserValidator } from './../middlewares/usersValidator'
 
 const sessionsRouter = Router()
 

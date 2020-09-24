@@ -2,7 +2,7 @@
 import { Router } from 'express'
 
 import CreateUserService from '../services/CreateUserService'
-import { createUserValidator } from './../validators/usersValidator'
+import { createUserValidator } from './../middlewares/usersValidator'
 
 const usersRouter = Router()
 

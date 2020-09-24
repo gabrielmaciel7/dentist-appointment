@@ -5,8 +5,11 @@ import { getCustomRepository } from 'typeorm'
 
 import AppointmentsRepository from '../repositories/AppointmentsRepository'
 import CreateAppointmentService from '../services/CreateAppointmentService'
+import jwtAuthenticator from '../middlewares/jwtAuthenticator'
 
 const appointmentsRouter = Router()
+
+appointmentsRouter.use(jwtAuthenticator)
 
 // eslint-disable-next-line prettier/prettier
 appointmentsRouter.get('/', async(request, response) => {

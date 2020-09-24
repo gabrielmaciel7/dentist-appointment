@@ -34,7 +34,7 @@ export const createUserValidator = (
     )
 
     if (error) {
-      throw new Error(getValidatorError(error, 'users'))
+      throw new Error(getValidatorError(error, 'users.create'))
     }
 
     next()
@@ -59,7 +59,7 @@ export const authenticateUserValidator = (
     const { error } = schema.validate({ email, password }, options)
 
     if (error) {
-      throw new Error(getValidatorError(error, 'users'))
+      throw new Error(getValidatorError(error, 'users.auth'))
     }
 
     next()
