@@ -1,11 +1,13 @@
+/* eslint-disable camelcase */
 import { Router } from 'express'
 
 import CreateUserService from '../services/CreateUserService'
+import { createUserValidator } from './../validators/usersValidator'
 
 const usersRouter = Router()
 
 // eslint-disable-next-line prettier/prettier
-usersRouter.post('/', async(request, response) => {
+usersRouter.post('/', createUserValidator, async(request, response) => {
   try {
     const { name, email, password } = request.body
 
