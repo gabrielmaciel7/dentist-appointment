@@ -1,11 +1,13 @@
+/* eslint-disable prettier/prettier */
 import { Router } from 'express'
 
 import AuthenticateUserService from '../services/AuthenticateUserService'
+import { authenticateUserValidator } from './../validators/usersValidator'
 
 const sessionsRouter = Router()
 
 // eslint-disable-next-line prettier/prettier
-sessionsRouter.post('/', async(request, response) => {
+sessionsRouter.post('/', authenticateUserValidator, async(request, response) => {
   try {
     const { email, password } = request.body
 
@@ -22,6 +24,7 @@ sessionsRouter.post('/', async(request, response) => {
   } catch (error) {
     return response.status(400).json({ error: error.message })
   }
-})
+}
+)
 
 export default sessionsRouter

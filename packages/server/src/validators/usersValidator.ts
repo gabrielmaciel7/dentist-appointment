@@ -34,7 +34,32 @@ export const createUserValidator = (
     )
 
     if (error) {
-      throw new Error(getValidatorError(error, 'users.create'))
+      throw new Error(getValidatorError(error, 'users'))
+    }
+
+    next()
+  } catch (error) {
+    return response.status(400).json({ error: error.message })
+  }
+}
+
+export const authenticateUserValidator = (
+  request: Request,
+  response: Response,
+  next: NextFunction
+): void | Response<JSON> => {
+  try {
+    const { email, password } = request.body
+
+    const schema = joi.object({
+      email: rules.email,
+      password: rules.password
+    })
+
+    const { error } = schema.validate({ email, password }, options)
+
+    if (error) {
+      throw new Error(getValidatorError(error, 'users'))
     }
 
     next()
