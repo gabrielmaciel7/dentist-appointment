@@ -26,7 +26,8 @@ module.exports = {
     'prettier/prettier': 'error',
     "space-before-function-paren": ["error", "never"],
     'class-method-use-this': 'off',
-    "indent": ["error", 2, { "ignoreComments": true, "MemberExpression": 1 }]
+    "indent": ["error", 2, { "ignoreComments": true, "MemberExpression": 1 }],
+    "@typescript-eslint/camelcase": "off"
   },
   settings: {
     'import/resolver': {

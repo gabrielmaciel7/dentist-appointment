@@ -1,3 +1,4 @@
 {
-  "appointments.create.already_booked": "This appointment is already booked."
+  "appointments.create.already_booked": "This appointment is already booked.",
+  "users.create.email.already_used": "Email address already used."
 }
