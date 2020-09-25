@@ -23,7 +23,7 @@ class UpdateUserAvatarService {
       throw new Error(getMessage('users.update.avatar.auth_error'))
     }
 
-    if (user.avatar) {
+    if (user.avatar && user.avatar !== '') {
       const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar)
       const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath)
 

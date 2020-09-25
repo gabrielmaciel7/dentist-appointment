@@ -14,14 +14,15 @@ const upload = multer(uploadConfig)
 // eslint-disable-next-line prettier/prettier
 usersRouter.post('/', createUserValidator, async(request, response) => {
   try {
-    const { name, email, password } = request.body
+    const { name, email, password, avatar = '' } = request.body
 
     const createUser = new CreateUserService()
 
     const user = await createUser.execute({
       name,
       email,
-      password
+      password,
+      avatar
     })
 
     delete user.password
