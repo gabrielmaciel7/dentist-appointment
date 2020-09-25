@@ -4,6 +4,7 @@ import multer from 'multer'
 import uploadConfig from '../config/upload'
 
 import CreateUserService from '../services/CreateUserService'
+import UpdateUserAvatarService from '../services/UpdateUserAvatarService'
 import { createUserValidator } from './../middlewares/usersValidator'
 import jwtAuthenticator from 'src/middlewares/jwtAuthenticator'
 
@@ -37,7 +38,20 @@ usersRouter.patch(
   upload.single('avatar'),
   // eslint-disable-next-line prettier/prettier
   async(request, response) => {
-    return response.json({ ok: true })
+    try {
+      const updateUserAvatar = new UpdateUserAvatarService()
+
+      const user = await updateUserAvatar.execute({
+        user_id: request.user.id,
+        avatarFilename: request.file.filename
+      })
+
+      delete user.password
+
+      return response.json(user)
+    } catch (error) {
+      return response.status(400).json({ error: error.message })
+    }
   }
 )
 
