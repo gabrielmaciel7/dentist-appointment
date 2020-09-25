@@ -6,8 +6,7 @@ import { authenticateUserValidator } from './../middlewares/usersValidator'
 
 const sessionsRouter = Router()
 
-// eslint-disable-next-line prettier/prettier
-sessionsRouter.post('/', authenticateUserValidator, async(request, response) => {
+sessionsRouter.post('/', authenticateUserValidator, async (request, response) => {
   const { email, password } = request.body
 
   const authenticateUser = new AuthenticateUserService()

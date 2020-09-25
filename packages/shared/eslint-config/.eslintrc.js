@@ -27,10 +27,22 @@ module.exports = {
     "space-before-function-paren": ["error", "never"],
     'class-method-use-this': 'off',
     "indent": ["error", 2, { "ignoreComments": true, "MemberExpression": 1 }],
-    "@typescript-eslint/camelcase": "off",
+    'camelcase': 'off',
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true
+      }
+    ],
     "@typescript-eslint/no-unused-vars": ["error", {
       "argsIgnorePattern": "_"
-    }]
+    }],
+    "space-before-function-paren": ["error", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+  }],
+    "react/jsx-one-expression-per-line": "off"
   },
   settings: {
     'import/resolver': {

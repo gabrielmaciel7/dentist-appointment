@@ -11,8 +11,7 @@ import jwtAuthenticator from 'src/middlewares/jwtAuthenticator'
 const usersRouter = Router()
 const upload = multer(uploadConfig)
 
-// eslint-disable-next-line prettier/prettier
-usersRouter.post('/', createUserValidator, async(request, response) => {
+usersRouter.post('/', createUserValidator, async (request, response) => {
   const { name, email, password, avatar = '' } = request.body
 
   const createUser = new CreateUserService()
@@ -33,8 +32,8 @@ usersRouter.patch(
   '/avatar',
   jwtAuthenticator,
   upload.single('avatar'),
-  // eslint-disable-next-line prettier/prettier
-  async(request, response) => {
+
+  async (request, response) => {
     const updateUserAvatar = new UpdateUserAvatarService()
 
     const user = await updateUserAvatar.execute({

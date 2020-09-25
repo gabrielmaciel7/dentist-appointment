@@ -11,16 +11,14 @@ const appointmentsRouter = Router()
 
 appointmentsRouter.use(jwtAuthenticator)
 
-// eslint-disable-next-line prettier/prettier
-appointmentsRouter.get('/', async(request, response) => {
+appointmentsRouter.get('/', async (request, response) => {
   const appointmentsRepository = getCustomRepository(AppointmentsRepository)
   const appointments = await appointmentsRepository.find()
 
   return response.json(appointments)
 })
 
-// eslint-disable-next-line prettier/prettier
-appointmentsRouter.post('/', async(request, response) => {
+appointmentsRouter.post('/', async (request, response) => {
   const { provider_id, date } = request.body
 
   const parsedDate = parseISO(date)
