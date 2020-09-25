@@ -22,7 +22,7 @@ export default class AlterAppointmentsProviderFieldToProviderId1600957438258 imp
     await queryRunner.createForeignKey(
       'appointments',
       new TableForeignKey({
-        name: 'appointmentProvider',
+        name: 'appointment_provider',
         columnNames: ['provider_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
@@ -33,7 +33,7 @@ export default class AlterAppointmentsProviderFieldToProviderId1600957438258 imp
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('appointments', 'appointmentProvider')
+    await queryRunner.dropForeignKey('appointments', 'appointment_provider')
 
     await queryRunner.dropColumn('appointments', 'provider_id')
 
