@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express'
 import joi from '@hapi/joi'
 
 import { getValidatorError } from 'src/services/GetMessageService'
+import AppError from '../errors/AppError'
 
 const rules = {
   name: joi.string().required(),
@@ -18,29 +19,25 @@ export const createUserValidator = (
   response: Response,
   next: NextFunction
 ): void | Response<JSON> => {
-  try {
-    const { name, email, password, password_confirmation } = request.body
+  const { name, email, password, password_confirmation } = request.body
 
-    const schema = joi.object({
-      name: rules.name,
-      email: rules.email,
-      password: rules.password,
-      password_confirmation: rules.password_confirmation
-    })
+  const schema = joi.object({
+    name: rules.name,
+    email: rules.email,
+    password: rules.password,
+    password_confirmation: rules.password_confirmation
+  })
 
-    const { error } = schema.validate(
-      { name, email, password, password_confirmation },
-      options
-    )
+  const { error } = schema.validate(
+    { name, email, password, password_confirmation },
+    options
+  )
 
-    if (error) {
-      throw new Error(getValidatorError(error, 'users.create'))
-    }
-
-    next()
-  } catch (error) {
-    return response.status(400).json({ error: error.message })
+  if (error) {
+    throw new AppError(getValidatorError(error, 'users.create'))
   }
+
+  next()
 }
 
 export const authenticateUserValidator = (
@@ -48,22 +45,18 @@ export const authenticateUserValidator = (
   response: Response,
   next: NextFunction
 ): void | Response<JSON> => {
-  try {
-    const { email, password } = request.body
+  const { email, password } = request.body
 
-    const schema = joi.object({
-      email: rules.email,
-      password: rules.password
-    })
+  const schema = joi.object({
+    email: rules.email,
+    password: rules.password
+  })
 
-    const { error } = schema.validate({ email, password }, options)
+  const { error } = schema.validate({ email, password }, options)
 
-    if (error) {
-      throw new Error(getValidatorError(error, 'users.auth'))
-    }
-
-    next()
-  } catch (error) {
-    return response.status(400).json({ error: error.message })
+  if (error) {
+    throw new AppError(getValidatorError(error, 'users.auth'))
   }
+
+  next()
 }

@@ -5,6 +5,7 @@ import { hash } from 'bcryptjs'
 import User from '../models/User'
 
 import getMessage from './GetMessageService'
+import AppError from '../errors/AppError'
 
 interface Request {
   name: string
@@ -27,7 +28,7 @@ class CreateUserService {
     })
 
     if (checkUserExists) {
-      throw new Error(getMessage('users.create.email.already_used'))
+      throw new AppError(getMessage('users.create.email.already_used'))
     }
 
     const hashedPassword = await hash(password, 8)

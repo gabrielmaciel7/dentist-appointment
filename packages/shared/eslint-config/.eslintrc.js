@@ -27,7 +27,10 @@ module.exports = {
     "space-before-function-paren": ["error", "never"],
     'class-method-use-this': 'off',
     "indent": ["error", 2, { "ignoreComments": true, "MemberExpression": 1 }],
-    "@typescript-eslint/camelcase": "off"
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/no-unused-vars": ["error", {
+      "argsIgnorePattern": "_"
+    }]
   },
   settings: {
     'import/resolver': {

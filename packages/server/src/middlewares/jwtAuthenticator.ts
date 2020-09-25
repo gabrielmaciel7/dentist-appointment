@@ -3,6 +3,7 @@ import { verify } from 'jsonwebtoken'
 import authConfig from '../config/auth'
 
 import getMessage from 'src/services/GetMessageService'
+import AppError from '../errors/AppError'
 
 interface TokenPayload {
   iat: number
@@ -18,7 +19,7 @@ export default function jwtAuthenticator(
   const authHeader = request.headers.authorization
 
   if (!authHeader) {
-    throw new Error(getMessage('jwt.auth.missing'))
+    throw new AppError(getMessage('jwt.auth.missing'), 401)
   }
 
   const [, token] = authHeader.split(' ')
@@ -33,6 +34,6 @@ export default function jwtAuthenticator(
 
     return next()
   } catch {
-    throw new Error(getMessage('jwt.auth.invalid'))
+    throw new AppError(getMessage('jwt.auth.invalid'), 401)
   }
 }

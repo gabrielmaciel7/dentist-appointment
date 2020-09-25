@@ -7,6 +7,7 @@ import uploadConfig from '../config/upload'
 import User from '../models/User'
 
 import getMessage from './GetMessageService'
+import AppError from '../errors/AppError'
 
 interface Request {
   user_id: string
@@ -20,7 +21,7 @@ class UpdateUserAvatarService {
     const user = await usersRepository.findOne(user_id)
 
     if (!user) {
-      throw new Error(getMessage('users.update.avatar.auth_error'))
+      throw new AppError(getMessage('users.update.avatar.auth_error'), 401)
     }
 
     if (user.avatar && user.avatar !== '') {

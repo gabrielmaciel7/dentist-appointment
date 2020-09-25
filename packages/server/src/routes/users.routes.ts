@@ -13,24 +13,20 @@ const upload = multer(uploadConfig)
 
 // eslint-disable-next-line prettier/prettier
 usersRouter.post('/', createUserValidator, async(request, response) => {
-  try {
-    const { name, email, password, avatar = '' } = request.body
+  const { name, email, password, avatar = '' } = request.body
 
-    const createUser = new CreateUserService()
+  const createUser = new CreateUserService()
 
-    const user = await createUser.execute({
-      name,
-      email,
-      password,
-      avatar
-    })
+  const user = await createUser.execute({
+    name,
+    email,
+    password,
+    avatar
+  })
 
-    delete user.password
+  delete user.password
 
-    return response.json(user)
-  } catch (error) {
-    return response.status(400).json({ error: error.message })
-  }
+  return response.json(user)
 })
 
 usersRouter.patch(
@@ -39,20 +35,16 @@ usersRouter.patch(
   upload.single('avatar'),
   // eslint-disable-next-line prettier/prettier
   async(request, response) => {
-    try {
-      const updateUserAvatar = new UpdateUserAvatarService()
+    const updateUserAvatar = new UpdateUserAvatarService()
 
-      const user = await updateUserAvatar.execute({
-        user_id: request.user.id,
-        avatarFilename: request.file.filename
-      })
+    const user = await updateUserAvatar.execute({
+      user_id: request.user.id,
+      avatarFilename: request.file.filename
+    })
 
-      delete user.password
+    delete user.password
 
-      return response.json(user)
-    } catch (error) {
-      return response.status(400).json({ error: error.message })
-    }
+    return response.json(user)
   }
 )
 
