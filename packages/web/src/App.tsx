@@ -1,9 +1,16 @@
 import React from 'react'
 
 // import api from '@monorepo/axios-config'
+import GlobalStyle from './styles/global'
+import SignIn from './pages/SignIn'
 
 const App: React.FC = () => {
-  return <h1>Hello World</h1>
+  return (
+    <>
+      <SignIn />
+      <GlobalStyle />
+    </>
+  )
 }
 
 export default App
