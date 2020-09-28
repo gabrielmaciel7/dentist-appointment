@@ -7,7 +7,7 @@
   "signup.email.required": "Email is required.",
   "signup.email.invalid": "Invalid email.",
   "signup.password.required": "Password is required.",
-  "signup.password.invalid": "Invalid password.",
+  "signup.password.invalid": "Password must be at least 4 digits.",
   "signup.password_confirmation.required": "Password confirmation is required.",
   "signup.password_confirmation.invalid": "Password confirmation must be equal the password.",
 

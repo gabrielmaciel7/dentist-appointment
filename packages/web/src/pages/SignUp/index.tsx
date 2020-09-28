@@ -20,19 +20,16 @@ const SignUp: React.FC = () => {
         email: Yup.string()
           .required(getMessage('signup.email.required'))
           .email(getMessage('signup.email.invalid')),
-        password: Yup.string()
-          .min(4, getMessage('signup.password.invalid'))
-          .required(getMessage('signup.password.required'))
-        // passwordConfirmation: Yup.string()
-        //   .min(4)
-        //   .oneOf(
-        //     [Yup.ref('password'), null],
-        //     getMessage('signup.password_confirmation.invalid')
-        //   )
-        //   .required(getMessage('signup.password_confirmation.required'))
+        password: Yup.string().min(4, getMessage('signup.password.invalid')),
+        passwordConfirmation: Yup.string()
+          .oneOf(
+            [Yup.ref('password'), null],
+            getMessage('signup.password_confirmation.invalid')
+          )
+          .required(getMessage('signup.password_confirmation.required'))
       })
 
-      await schema.validate(data)
+      await schema.validate(data, { abortEarly: false })
     } catch (err) {
       console.log(err)
     }
