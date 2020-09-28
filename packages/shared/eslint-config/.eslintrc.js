@@ -42,7 +42,8 @@ module.exports = {
       "named": "never",
       "asyncArrow": "always"
   }],
-    "react/jsx-one-expression-per-line": "off"
+    "react/jsx-one-expression-per-line": "off",
+    "react/prop-types": 0
   },
   settings: {
     'import/resolver': {

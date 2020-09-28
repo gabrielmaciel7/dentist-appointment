@@ -33,39 +33,6 @@ export const Content = styled.div`
       color: #28423c;
     }
 
-    input {
-      background: #84dcc6;
-      border-radius: 10px;
-      border: 2px solid #84dcc6;
-      padding: 16px;
-      width: 100%;
-      color: #000;
-
-      & + input {
-        margin-top: 8px;
-      }
-
-      &::placeholder {
-        color: #fff;
-      }
-    }
-
-    button {
-      background: #28423c;
-      height: 56px;
-      border-radius: 10px;
-      border: 0;
-      padding: 0 16px;
-      color: #fff;
-      width: 100%;
-      margin-top: 16px;
-      transition: background 0.2s;
-
-      &:hover {
-        background: ${shade(0.2, '#28423c')};
-      }
-    }
-
     a {
       color: #28423c;
       display: block;
@@ -80,7 +47,7 @@ export const Content = styled.div`
   }
 
   > a {
-    color: #28423c;
+    color: #84dcc6;
     display: block;
     margin-top: 24px;
     text-decoration: none;
@@ -92,7 +59,7 @@ export const Content = styled.div`
     transition: color 0.2s;
 
     &:hover {
-      color: ${shade(0.4, '#28423c')};
+      color: ${shade(0.4, '#84DCC6')};
     }
 
     svg {
