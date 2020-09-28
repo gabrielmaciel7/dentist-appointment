@@ -1,0 +1,26 @@
+{
+  "appointments.create.already_booked": "This appointment is already booked.",
+
+  "signup.name.required": "Name is required.",
+  "signup.name.invalid": "Invalid name.",
+  "signup.email.already_used": "Email address is already used.",
+  "signup.email.required": "Email is required.",
+  "signup.email.invalid": "Invalid email.",
+  "signup.password.required": "Password is required.",
+  "signup.password.invalid": "Invalid password.",
+  "signup.password_confirmation.required": "Password confirmation is required.",
+  "signup.password_confirmation.invalid": "Password confirmation must be equal the password.",
+
+  "users.update.avatar.auth_error": "Only authenticated users can change avatar.",
+
+  "signin.email.required": "Email is required.",
+  "signin.email.invalid": "Invalid email.",
+  "signin.password.required": "Password is required.",
+  "signin.password.invalid": "Invalid password.",
+  "signin.incorrect": "Incorrect data.",
+
+  "jwt.auth.missing": "JWT token is missing.",
+  "jwt.auth.invalid": "Invalid JWT token.",
+
+  "server.internal_error": "Internal server error."
+}

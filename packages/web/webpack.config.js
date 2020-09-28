@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+const { SourceMapDevToolPlugin } = require("webpack");
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -32,7 +33,12 @@ module.exports = {
         use: {
             loader: 'file-loader',
         }
-      }
+      },
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        use: ['source-map-loader'],
+      },
     ]
   },
   devServer: {

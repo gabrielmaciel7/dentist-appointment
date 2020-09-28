@@ -1,12 +1,17 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { shade } from 'polished'
 
-export const Container = styled.div`
+interface ContainerProps {
+  isFilled: boolean
+}
+
+export const Container = styled.div<ContainerProps>`
   background: #fff;
   border-radius: 10px;
-  border: 2px solid #84dcc6;
+  border: 2px solid #a5ffd6;
   padding: 16px;
   width: 100%;
-  color: #84dcc6;
+  color: #a5ffd6;
 
   display: flex;
   align-items: center;
@@ -14,6 +19,17 @@ export const Container = styled.div`
   & + div {
     margin-top: 8px;
   }
+
+  &:focus-within {
+    border: 2px solid ${shade(0.4, '#84dcc6')};
+    color: ${shade(0.4, '#84dcc6')};
+  }
+
+  ${props =>
+    props.isFilled &&
+    css`
+      color: ${shade(0.4, '#84dcc6')};
+    `}
 
   input {
     flex: 1;
