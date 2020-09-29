@@ -36,6 +36,7 @@ export const Container = styled.div<ContainerProps>`
 
   ${props =>
     props.hasError &&
+    !props.isFilled &&
     css`
       border: 2px solid #ffa69e;
     `}

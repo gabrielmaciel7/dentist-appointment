@@ -31,6 +31,10 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
     })
   }, [fieldName, registerField])
 
+  useEffect(() => {
+    if (error) setIsFilled(false)
+  }, [error])
+
   const handleInputBlur = useCallback(() => {
     setIsFilled(!!inputRef.current.value)
   }, [])
