@@ -1,6 +1,7 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { FiArrowLeft, FiMail, FiLock, FiUser } from 'react-icons/fi'
 import { Form } from '@unform/web'
+import { FormHandles } from '@unform/core'
 import * as Yup from 'yup'
 
 import logoImg from '../../assets/logo.svg'
@@ -10,10 +11,15 @@ import Button from '../../components/Button'
 
 import { Container, Content, Background } from './styles'
 
-import getMessage from '../../helpers/getMessage'
+import getMessage from '../../utils/getMessage'
+import getValidationErrors from '../../utils/getValidationErrors'
 
 const SignUp: React.FC = () => {
+  const formRef = useRef<FormHandles>(null)
+
   const handleSubmit = useCallback(async (data: Record<string, unknown>) => {
+    formRef.current?.setErrors({})
+
     try {
       const schema = Yup.object().shape({
         name: Yup.string().required(getMessage('signup.name.required')),
@@ -31,7 +37,9 @@ const SignUp: React.FC = () => {
 
       await schema.validate(data, { abortEarly: false })
     } catch (err) {
-      console.log(err)
+      const errors = getValidationErrors(err)
+
+      formRef.current?.setErrors(errors)
     }
   }, [])
 
@@ -42,7 +50,7 @@ const SignUp: React.FC = () => {
       <Content>
         <img src={logoImg} alt="Whiteeth" />
 
-        <Form onSubmit={handleSubmit}>
+        <Form ref={formRef} onSubmit={handleSubmit}>
           <h1>Sign up</h1>
 
           <Input name="name" placeholder="Name" icon={FiUser} />
