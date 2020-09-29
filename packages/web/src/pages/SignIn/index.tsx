@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useContext } from 'react'
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
 import { Form } from '@unform/web'
 import { FormHandles } from '@unform/core'
@@ -9,32 +9,45 @@ import logoImg from '../../assets/logo.svg'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
+import { AuthContext } from '../../contexts/AuthContext'
 import getMessage from '../../utils/getMessage'
 import getValidationErrors from '../../utils/getValidationErrors'
 
 import { Container, Content, Background } from './styles'
 
+interface signInFormData {
+  email: string
+  password: string
+}
+
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
 
-  const handleSubmit = useCallback(async (data: Record<string, unknown>) => {
-    formRef.current?.setErrors({})
+  const { signIn } = useContext(AuthContext)
 
-    try {
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .required(getMessage('signin.email.required'))
-          .email(getMessage('signin.email.invalid')),
-        password: Yup.string().min(4, getMessage('signin.password.invalid'))
-      })
+  const handleSubmit = useCallback(
+    async (data: signInFormData) => {
+      formRef.current?.setErrors({})
 
-      await schema.validate(data, { abortEarly: false })
-    } catch (err) {
-      const errors = getValidationErrors(err)
+      try {
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required(getMessage('signin.email.required'))
+            .email(getMessage('signin.email.invalid')),
+          password: Yup.string().min(4, getMessage('signin.password.invalid'))
+        })
 
-      formRef.current?.setErrors(errors)
-    }
-  }, [])
+        await schema.validate(data, { abortEarly: false })
+
+        signIn({ email: data.email, password: data.password })
+      } catch (err) {
+        const errors = getValidationErrors(err)
+
+        formRef.current?.setErrors(errors)
+      }
+    },
+    [signIn]
+  )
 
   return (
     <Container>

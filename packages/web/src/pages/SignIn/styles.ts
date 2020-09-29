@@ -47,7 +47,7 @@ export const Content = styled.div`
   }
 
   > a {
-    color: #84dcc6;
+    color: #28423c;
     display: block;
     margin-top: 24px;
     text-decoration: none;
@@ -59,7 +59,7 @@ export const Content = styled.div`
     transition: color 0.2s;
 
     &:hover {
-      color: ${shade(0.2, '#84DCC6')};
+      color: ${shade(0.4, '#28423c')};
     }
 
     svg {
