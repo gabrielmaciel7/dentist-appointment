@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
 import { shade } from 'polished'
+import { animated } from 'react-spring'
 
 interface ContainerProps {
   type?: string
@@ -21,7 +22,7 @@ const toastTypeVariations = {
   `
 }
 
-export const Container = styled.div<ContainerProps>`
+export const Container = styled(animated.div)<ContainerProps>`
   position: relative;
   width: 360px;
   padding: 16px 30px 16px 16px;
