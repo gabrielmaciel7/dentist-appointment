@@ -22,5 +22,7 @@
   "jwt.auth.missing": "JWT token is missing.",
   "jwt.auth.invalid": "Invalid JWT token.",
 
+  "context.auth.use_auth.error": "useAuth must be used within a AuthProvider.",
+
   "server.internal_error": "Internal server error."
 }
