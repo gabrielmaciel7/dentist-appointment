@@ -23,6 +23,7 @@
   "jwt.auth.invalid": "Invalid JWT token.",
 
   "context.auth.use_auth.error": "useAuth must be used within a AuthProvider.",
+  "context.toast.use_toast.error": "useToast must be used within a ToastProvider.",
 
   "server.internal_error": "Internal server error."
 }
