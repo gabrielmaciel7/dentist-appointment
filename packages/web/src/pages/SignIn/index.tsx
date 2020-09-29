@@ -46,13 +46,25 @@ const SignIn: React.FC = () => {
 
         await signIn({ email: data.email, password: data.password })
       } catch (err) {
+        const description = []
+
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err)
 
           formRef.current?.setErrors(errors)
+
+          err.errors.forEach(error => description.push(error))
+        } else {
+          description.push(err.message)
         }
 
-        addToast()
+        description.forEach(description => {
+          addToast({
+            type: 'error',
+            title: 'Authentication error.',
+            description
+          })
+        })
       }
     },
     [signIn, addToast]
