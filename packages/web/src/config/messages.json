@@ -16,7 +16,7 @@
   "signin.email.required": "Email is required.",
   "signin.email.invalid": "Invalid email.",
   "signin.password.required": "Password is required.",
-  "signin.password.invalid": "Invalid password.",
+  "signin.password.invalid": "Password must be at least 4 digits.",
   "signin.incorrect": "Incorrect data.",
 
   "jwt.auth.missing": "JWT token is missing.",

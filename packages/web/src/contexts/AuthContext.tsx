@@ -17,6 +17,7 @@ interface SignInData {
 interface AuthContextData {
   user: Record<string, unknown>
   signIn(credentials: SignInCredentials): Promise<void>
+  signOut(): void
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -44,8 +45,15 @@ export const AuthProvider: React.FC = ({ children }) => {
     setAuthData({ token, user })
   }, [])
 
+  const signOut = useCallback(() => {
+    localStorage.removeItem('@Whiteeth:token')
+    localStorage.removeItem('@Whiteeth:user')
+
+    setAuthData({} as SignInData)
+  }, [])
+
   return (
-    <AuthContext.Provider value={{ user: authData.user, signIn }}>
+    <AuthContext.Provider value={{ user: authData.user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   )
