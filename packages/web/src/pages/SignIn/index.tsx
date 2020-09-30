@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
 import { Form } from '@unform/web'
 import { FormHandles } from '@unform/core'
@@ -25,6 +25,7 @@ interface signInFormData {
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
+  const history = useHistory()
 
   const { signIn, user } = useAuth()
   const { addToast } = useToast()
@@ -46,29 +47,31 @@ const SignIn: React.FC = () => {
         await schema.validate(data, { abortEarly: false })
 
         await signIn({ email: data.email, password: data.password })
-      } catch (err) {
-        const description = []
 
+        history.push('/dashboard')
+
+        addToast({
+          type: 'success',
+          title: 'Successful authentication.',
+          description: getMessage('signin.success')
+        })
+      } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err)
 
           formRef.current?.setErrors(errors)
 
-          err.errors.forEach(error => description.push(error))
-        } else {
-          description.push(err.message)
+          return
         }
 
-        description.forEach(description => {
-          addToast({
-            type: 'error',
-            title: 'Authentication error.',
-            description
-          })
+        addToast({
+          type: 'error',
+          title: 'Authentication error.',
+          description: err.message
         })
       }
     },
-    [signIn, addToast]
+    [signIn, addToast, history]
   )
 
   return (

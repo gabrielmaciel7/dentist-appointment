@@ -9,6 +9,13 @@ interface SignInCredentials {
   password: string
 }
 
+interface SignUpCredentials {
+  name: string
+  email: string
+  password: string
+  password_confirmation: string
+}
+
 interface SignInData {
   token: string
   user: Record<string, unknown>
@@ -17,6 +24,7 @@ interface SignInData {
 interface AuthContextData {
   user: Record<string, unknown>
   signIn(credentials: SignInCredentials): Promise<void>
+  signUp(credentials: SignUpCredentials): Promise<void>
   signOut(): void
 }
 
@@ -56,6 +64,28 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   }, [])
 
+  const signUp = useCallback(
+    async ({ name, email, password, password_confirmation }) => {
+      try {
+        await api.post('/users', {
+          name,
+
+          email,
+          password,
+
+          password_confirmation
+        })
+      } catch (err) {
+        throw new Error(
+          err.response
+            ? err.response.data.message
+            : getMessage('server.internal_error')
+        )
+      }
+    },
+    []
+  )
+
   const signOut = useCallback(() => {
     localStorage.removeItem('@Whiteeth:token')
     localStorage.removeItem('@Whiteeth:user')
@@ -64,7 +94,9 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user: authData.user, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user: authData.user, signIn, signUp, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   )

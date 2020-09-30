@@ -10,6 +10,7 @@
   "signup.password.invalid": "Password must be at least 4 digits.",
   "signup.password_confirmation.required": "Password confirmation is required.",
   "signup.password_confirmation.invalid": "Password confirmation must be equal the password.",
+  "signup.success": "You can now enter the application.",
 
   "users.update.avatar.auth_error": "Only authenticated users can change avatar.",
 
@@ -18,6 +19,7 @@
   "signin.password.required": "Password is required.",
   "signin.password.invalid": "Password must be at least 4 digits.",
   "signin.incorrect": "Incorrect data.",
+  "signin.success": "Welcome to Whiteeth!",
 
   "jwt.auth.missing": "JWT token is missing.",
   "jwt.auth.invalid": "Invalid JWT token.",
