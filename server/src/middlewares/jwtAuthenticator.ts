@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { verify } from 'jsonwebtoken'
 import authConfig from '../config/auth'
 
-import getMessage from 'src/services/GetMessageService'
+import getMessage from '../services/GetMessageService'
 import AppError from '../errors/AppError'
 
 interface TokenPayload {

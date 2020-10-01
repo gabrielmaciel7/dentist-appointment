@@ -6,6 +6,9 @@ const { SourceMapDevToolPlugin } = require("webpack");
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 module.exports = {
+  node: {
+    fs: "empty"
+ },
   mode: isDevelopment ? 'development' : 'production',
   resolve: {
     extensions: ['.tsx', '.ts', '.js']

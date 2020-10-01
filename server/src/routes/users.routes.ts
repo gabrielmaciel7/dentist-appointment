@@ -6,7 +6,7 @@ import uploadConfig from '../config/upload'
 import CreateUserService from '../services/CreateUserService'
 import UpdateUserAvatarService from '../services/UpdateUserAvatarService'
 import { createUserValidator } from './../middlewares/usersValidator'
-import jwtAuthenticator from 'src/middlewares/jwtAuthenticator'
+import jwtAuthenticator from '../middlewares/jwtAuthenticator'
 
 const usersRouter = Router()
 const upload = multer(uploadConfig)

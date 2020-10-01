@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import joi from '@hapi/joi'
 
-import { getValidatorError } from 'src/services/GetMessageService'
+import { getValidatorError } from '../services/GetMessageService'
 import AppError from '../errors/AppError'
 
 const rules = {
