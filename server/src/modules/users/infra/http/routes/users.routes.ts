@@ -1,12 +1,12 @@
 /* eslint-disable camelcase */
 import { Router } from 'express'
 import multer from 'multer'
-import uploadConfig from '../config/upload'
+import uploadConfig from '@config/upload'
 
-import CreateUserService from '../services/CreateUserService'
-import UpdateUserAvatarService from '../services/UpdateUserAvatarService'
-import { createUserValidator } from './../middlewares/usersValidator'
-import jwtAuthenticator from '../middlewares/jwtAuthenticator'
+import CreateUserService from '@modules/users/services/CreateUserService'
+import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService'
+import { createUserValidator } from '@modules/users/infra/http/middlewares/usersValidator'
+import jwtAuthenticator from '@modules/users/infra/http/middlewares/jwtAuthenticator'
 
 const usersRouter = Router()
 const upload = multer(uploadConfig)

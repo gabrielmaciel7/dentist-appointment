@@ -1,10 +1,10 @@
 import { getRepository } from 'typeorm'
 import { hash } from 'bcryptjs'
 
-import User from '../models/User'
+import User from '@modules/users/infra/typeorm/entities/User'
 
-import getMessage from './GetMessageService'
-import AppError from '../errors/AppError'
+import getMessage from '@shared/services/GetMessageService'
+import AppError from '@shared/errors/AppError'
 
 interface Request {
   name: string

@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Router } from 'express'
 
-import AuthenticateUserService from '../services/AuthenticateUserService'
-import { authenticateUserValidator } from './../middlewares/usersValidator'
+import AuthenticateUserService from '@modules/users/services/AuthenticateUserService'
+import { authenticateUserValidator } from '@modules/users/infra/http/middlewares/usersValidator'
 
 const sessionsRouter = Router()
 

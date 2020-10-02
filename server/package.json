@@ -1,14 +1,14 @@
 {
   "name": "whiteeth-server",
   "version": "1.0.0",
-  "main": "src/server.ts",
+  "main": "src/shared/infra/http/server.ts",
   "author": "gabrielmaciel7 <gabrielmaciel.nave@gmail.com>",
   "license": "MIT",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
-    "start": "node dist/server.js",
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+    "start": "node dist/shared/infra/http/server.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --respawn --transpile-only --ignore-watch node_modules --no-notify src/shared/infra/http/server.ts",
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.3",
@@ -17,7 +17,6 @@
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
-    "babel-plugin-transform-typescript-metadata": "^0.3.0",
     "@types/babel-core": "^6.25.6",
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.6",
@@ -28,6 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^3.7.0",
     "@typescript-eslint/parser": "^3.7.0",
     "babel-plugin-module-resolver": "^4.0.0",
+    "babel-plugin-transform-typescript-metadata": "^0.3.0",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-standard": "^14.1.1",

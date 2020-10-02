@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express'
 import joi from '@hapi/joi'
 
-import { getValidatorError } from '../services/GetMessageService'
-import AppError from '../errors/AppError'
+import { getValidatorError } from '@shared/services/GetMessageService'
+import AppError from '@shared/errors/AppError'
 
 const rules = {
   name: joi.string().required(),
