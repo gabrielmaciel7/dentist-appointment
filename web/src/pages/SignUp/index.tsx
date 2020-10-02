@@ -36,8 +36,6 @@ const SignUp: React.FC = () => {
     async (data: SignUpFormData) => {
       formRef.current && formRef.current.setErrors({})
 
-      console.log(data)
-
       try {
         const schema = Yup.object().shape({
           name: Yup.string().required(getMessage('signup.name.required')),
