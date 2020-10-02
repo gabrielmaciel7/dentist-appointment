@@ -34,7 +34,9 @@ const SignUp: React.FC = () => {
 
   const handleSubmit = useCallback(
     async (data: SignUpFormData) => {
-      formRef.current?.setErrors({})
+      formRef.current && formRef.current.setErrors({})
+
+      console.log(data)
 
       try {
         const schema = Yup.object().shape({
@@ -43,7 +45,7 @@ const SignUp: React.FC = () => {
             .required(getMessage('signup.email.required'))
             .email(getMessage('signup.email.invalid')),
           password: Yup.string().min(4, getMessage('signup.password.invalid')),
-          passwordConfirmation: Yup.string()
+          password_confirmation: Yup.string()
             .oneOf(
               [Yup.ref('password'), undefined],
               getMessage('signup.password_confirmation.invalid')
@@ -71,7 +73,7 @@ const SignUp: React.FC = () => {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err)
 
-          formRef.current?.setErrors(errors)
+          formRef.current && formRef.current.setErrors(errors)
 
           return
         }
@@ -106,7 +108,7 @@ const SignUp: React.FC = () => {
               icon={FiLock}
             />
             <Input
-              name="passwordConfirmation"
+              name="password_confirmation"
               type="password"
               placeholder="Password confirmation"
               icon={FiLock}

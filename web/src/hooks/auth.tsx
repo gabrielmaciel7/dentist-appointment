@@ -69,10 +69,8 @@ export const AuthProvider: React.FC = ({ children }) => {
       try {
         await api.post('/users', {
           name,
-
           email,
           password,
-
           password_confirmation
         })
       } catch (err) {
