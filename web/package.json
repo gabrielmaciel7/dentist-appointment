@@ -1,15 +1,10 @@
 {
   "name": "whiteeth-web",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
-  "scripts": {
-    "start": "webpack-dev-server --mode development"
-  },
+  "private": true,
   "dependencies": {
-    "@babel/runtime": "^7.11.2",
-    "@types/styled-components": "^5.1.3",
-    "@types/yup": "^0.29.7",
     "@unform/core": "^2.1.3",
     "@unform/web": "^2.1.3",
     "axios": "^0.19.2",
@@ -18,24 +13,30 @@
     "react-dom": "^16.13.1",
     "react-icons": "^3.11.0",
     "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
     "react-spring": "^8.0.27",
     "styled-components": "^5.2.0",
+    "typescript": "~3.7.2",
     "uuid": "^8.3.0",
     "yup": "^0.29.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.5",
-    "@babel/plugin-transform-runtime": "^7.11.5",
-    "@babel/preset-env": "^7.10.4",
-    "@babel/preset-react": "^7.10.4",
-    "@babel/preset-typescript": "^7.10.4",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.3.3",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
     "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.5",
+    "@types/styled-components": "^5.1.3",
+    "@types/uuid": "^8.3.0",
+    "@types/yup": "^0.29.7",
     "@typescript-eslint/eslint-plugin": "^3.7.0",
     "@typescript-eslint/parser": "^3.7.0",
     "babel-loader": "^8.1.0",
-    "eslint": "^7.5.0",
+    "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-import-resolver-typescript": "^2.0.0",
@@ -51,9 +52,29 @@
     "react-refresh": "^0.8.3",
     "source-map-loader": "^1.1.0",
     "svg-url-loader": "^6.0.0",
-    "typescript": "^3.9.7",
-    "webpack": "^4.44.0",
+    "webpack": "4.42.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

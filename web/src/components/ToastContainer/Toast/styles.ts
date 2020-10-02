@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 import { shade } from 'polished'
 
 interface ContainerProps {
-  type?: string
+  type?: 'info' | 'success' | 'error'
   hasDescription: boolean
 }
 

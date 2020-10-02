@@ -1,17 +1,23 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["esnext", "dom"],
+    "lib": [
+      "esnext",
+      "dom"
+    ],
     "allowJs": false,
     "checkJs": false,
     "jsx": "react",
     "target": "es2017",
-    "module": "commonjs",
+    "module": "esnext",
     "noEmit": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "isolatedModules": true
   },
   "include": [
     "./src/**/*"

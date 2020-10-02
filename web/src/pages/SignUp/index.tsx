@@ -45,7 +45,7 @@ const SignUp: React.FC = () => {
           password: Yup.string().min(4, getMessage('signup.password.invalid')),
           passwordConfirmation: Yup.string()
             .oneOf(
-              [Yup.ref('password'), null],
+              [Yup.ref('password'), undefined],
               getMessage('signup.password_confirmation.invalid')
             )
             .required(getMessage('signup.password_confirmation.required'))
@@ -83,7 +83,7 @@ const SignUp: React.FC = () => {
         })
       }
     },
-    [addToast, history]
+    [addToast, history, signUp]
   )
 
   return (

@@ -36,7 +36,7 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
   }, [error])
 
   const handleInputBlur = useCallback(() => {
-    setIsFilled(!!inputRef.current.value)
+    setIsFilled(!!inputRef.current?.value)
   }, [])
 
   return (
