@@ -15,4 +15,13 @@ export const Container = styled.button`
   &:hover {
     background: ${shade(0.2, '#28423c')};
   }
+
+  &:disabled {
+    background: #84dcc6;
+    cursor: default;
+
+    &:hover {
+      background: #84dcc6;
+    }
+  }
 `

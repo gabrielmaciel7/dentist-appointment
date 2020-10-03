@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
 import { Form } from '@unform/web'
@@ -24,6 +24,7 @@ interface signInFormData {
 }
 
 const SignIn: React.FC = () => {
+  const [requestingServer, setRequestingServer] = useState(false)
   const formRef = useRef<FormHandles>(null)
   const history = useHistory()
 
@@ -34,7 +35,7 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = useCallback(
     async (data: signInFormData) => {
-      formRef.current?.setErrors({})
+      formRef.current && formRef.current.setErrors({})
 
       try {
         const schema = Yup.object().shape({
@@ -46,7 +47,9 @@ const SignIn: React.FC = () => {
 
         await schema.validate(data, { abortEarly: false })
 
+        setRequestingServer(true)
         await signIn({ email: data.email, password: data.password })
+        setRequestingServer(false)
 
         history.push('/dashboard')
 
@@ -56,10 +59,12 @@ const SignIn: React.FC = () => {
           description: getMessage('signin.success')
         })
       } catch (err) {
+        setRequestingServer(false)
+
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err)
 
-          formRef.current?.setErrors(errors)
+          formRef.current && formRef.current.setErrors(errors)
 
           return
         }
@@ -90,7 +95,12 @@ const SignIn: React.FC = () => {
               placeholder="Password"
               icon={FiLock}
             />
-            <Button type="submit">Login</Button>
+
+            {requestingServer ? (
+              <Button disabled>Logging in...</Button>
+            ) : (
+              <Button type="submit">Login</Button>
+            )}
 
             <a href="forgot">Forgot password?</a>
           </Form>

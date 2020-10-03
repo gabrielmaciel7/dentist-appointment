@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { FiArrowLeft, FiMail, FiLock, FiUser } from 'react-icons/fi'
 import { Form } from '@unform/web'
@@ -26,6 +26,7 @@ interface SignUpFormData {
 }
 
 const SignUp: React.FC = () => {
+  const [requestingServer, setRequestingServer] = useState(false)
   const formRef = useRef<FormHandles>(null)
   const history = useHistory()
 
@@ -53,12 +54,14 @@ const SignUp: React.FC = () => {
 
         await schema.validate(data, { abortEarly: false })
 
+        setRequestingServer(true)
         await signUp({
           name: data.name,
           email: data.email,
           password: data.password,
           password_confirmation: data.password_confirmation
         })
+        setRequestingServer(false)
 
         history.push('/')
 
@@ -68,6 +71,8 @@ const SignUp: React.FC = () => {
           description: getMessage('signup.success')
         })
       } catch (err) {
+        setRequestingServer(false)
+
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err)
 
@@ -111,7 +116,12 @@ const SignUp: React.FC = () => {
               placeholder="Password confirmation"
               icon={FiLock}
             />
-            <Button type="submit">Register</Button>
+
+            {requestingServer ? (
+              <Button disabled>Signing up...</Button>
+            ) : (
+              <Button type="submit">Register</Button>
+            )}
           </Form>
 
           <Link to="/">
