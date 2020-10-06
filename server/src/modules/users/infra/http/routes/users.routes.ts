@@ -1,5 +1,5 @@
-/* eslint-disable camelcase */
 import { Router } from 'express'
+import { container } from 'tsyringe'
 import multer from 'multer'
 import uploadConfig from '@config/upload'
 
@@ -14,7 +14,7 @@ const upload = multer(uploadConfig)
 usersRouter.post('/', createUserValidator, async (request, response) => {
   const { name, email, password, avatar = '' } = request.body
 
-  const createUser = new CreateUserService()
+  const createUser = container.resolve(CreateUserService)
 
   const user = await createUser.execute({
     name,
@@ -34,7 +34,7 @@ usersRouter.patch(
   upload.single('avatar'),
 
   async (request, response) => {
-    const updateUserAvatar = new UpdateUserAvatarService()
+    const updateUserAvatar = container.resolve(UpdateUserAvatarService)
 
     const user = await updateUserAvatar.execute({
       user_id: request.user.id,

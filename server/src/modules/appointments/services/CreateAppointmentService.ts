@@ -1,24 +1,28 @@
-/* eslint-disable camelcase */
 import { startOfHour } from 'date-fns'
-import { getCustomRepository } from 'typeorm'
+import { inject, injectable } from 'tsyringe'
 
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment'
-import AppointmentsRepository from '@modules/appointments/infra/typeorm/repositories/AppointmentsRepository'
 
 import getMessage from '@shared/services/GetMessageService'
 import AppError from '@shared/errors/AppError'
 
-interface Request {
-  provider_id: string
-  date: Date
-}
+import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository'
+import ICreateAppointmentDTO from '@modules/appointments/dtos/ICreateAppointmentDTO'
 
+@injectable()
 class CreateAppointmentService {
-  public async execute({ date, provider_id }: Request): Promise<Appointment> {
-    const appointmentsRepository = getCustomRepository(AppointmentsRepository)
+  constructor(
+    @inject('AppointmentsRepository')
+    private appointmentsRepository: IAppointmentsRepository
+  ) {}
+
+  public async execute({
+    date,
+    provider_id
+  }: ICreateAppointmentDTO): Promise<Appointment> {
     const appointmentDate = startOfHour(date)
 
-    const findAppointmentInSameDate = await appointmentsRepository.findByDate(
+    const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(
       appointmentDate
     )
 
@@ -26,12 +30,10 @@ class CreateAppointmentService {
       throw new AppError(getMessage('appointments.create.already_booked'))
     }
 
-    const appointment = appointmentsRepository.create({
+    const appointment = await this.appointmentsRepository.create({
       provider_id,
       date: appointmentDate
     })
-
-    await appointmentsRepository.save(appointment)
 
     return appointment
   }

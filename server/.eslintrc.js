@@ -25,8 +25,9 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'class-method-use-this': 'off',
-    indent: ['error', 2, { ignoreComments: true, MemberExpression: 1 }],
-    camelcase: 'off',
+    'indent': ['error', 2, { ignoreComments: true, MemberExpression: 1 }],
+    'camelcase': 'off',
+    'no-useless-constructor': 'off',
     '@typescript-eslint/explicit-function-return-type': [
       'error',
       {
@@ -37,6 +38,17 @@ module.exports = {
       'error',
       {
         argsIgnorePattern: '_'
+      }
+    ],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "interface",
+        "format": ["PascalCase"],
+        "custom": {
+          "regex": "^I[A-Z]",
+          "match": true
+        }
       }
     ],
     'space-before-function-paren': [
