@@ -1,7 +1,7 @@
 import { createConnection } from 'typeorm'
 
 createConnection({
-  // name: 'default',
+  name: 'default',
   type: 'postgres',
   host: process.env.TYPEORM_HOST,
   port: Number(process.env.TYPEORM_PORT),
