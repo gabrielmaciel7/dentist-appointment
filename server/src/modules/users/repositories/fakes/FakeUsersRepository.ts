@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4'
+import { v4 as uuidv4 } from 'uuid'
 
 import User from '@modules/users/infra/typeorm/entities/User'
 
@@ -29,7 +29,7 @@ class UsersRepository implements IUsersRepository {
     const user = new User()
 
     Object.assign(user, {
-      id: uuid(),
+      id: uuidv4(),
       name,
       email,
       password,
