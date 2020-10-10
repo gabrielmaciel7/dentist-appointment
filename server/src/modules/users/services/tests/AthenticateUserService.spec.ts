@@ -1,5 +1,6 @@
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository'
 import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider'
+import JwtTokenProvider from '@modules/users/providers/TokenProvider/implementations/JwtTokenProvider'
 
 import AuthenticateUserService from '@modules/users/services/AuthenticateUserService'
 import CreateUserService from '@modules/users/services/CreateUserService'
@@ -10,10 +11,12 @@ describe('AuthenticateUser', () => {
   it('should be able to authenticate', async () => {
     const fakeUsersRepository = new FakeUsersRepository()
     const fakeHashProvider = new FakeHashProvider()
+    const tokenProvider = new JwtTokenProvider()
 
     const authenticateUser = new AuthenticateUserService(
       fakeUsersRepository,
-      fakeHashProvider
+      fakeHashProvider,
+      tokenProvider
     )
 
     const createUser = new CreateUserService(
@@ -40,10 +43,12 @@ describe('AuthenticateUser', () => {
   it('should not be able to authenticate with non existing user', async () => {
     const fakeUsersRepository = new FakeUsersRepository()
     const fakeHashProvider = new FakeHashProvider()
+    const tokenProvider = new JwtTokenProvider()
 
     const authenticateUser = new AuthenticateUserService(
       fakeUsersRepository,
-      fakeHashProvider
+      fakeHashProvider,
+      tokenProvider
     )
 
     expect(
@@ -57,10 +62,12 @@ describe('AuthenticateUser', () => {
   it('should not be able to authenticate with wrong password', async () => {
     const fakeUsersRepository = new FakeUsersRepository()
     const fakeHashProvider = new FakeHashProvider()
+    const tokenProvider = new JwtTokenProvider()
 
     const authenticateUser = new AuthenticateUserService(
       fakeUsersRepository,
-      fakeHashProvider
+      fakeHashProvider,
+      tokenProvider
     )
 
     const createUser = new CreateUserService(

@@ -1,6 +1,4 @@
-import { sign } from 'jsonwebtoken'
 import { injectable, inject } from 'tsyringe'
-import authConfig from '@config/auth'
 
 import User from '@modules/users/infra/typeorm/entities/User'
 
@@ -9,6 +7,7 @@ import AppError from '@shared/errors/AppError'
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository'
 import IHashProvider from '../providers/HashProvider/models/IHashProvider'
+import ITokenProvider from '../providers/TokenProvider/models/ITokenProvider'
 
 interface IRequest {
   email: string
@@ -27,7 +26,10 @@ class AuthenticateUserService {
     private usersRepository: IUsersRepository,
 
     @inject('HashProvider')
-    private hashProvider: IHashProvider
+    private hashProvider: IHashProvider,
+
+    @inject('TokenProvider')
+    private tokenProvider: ITokenProvider
   ) {}
 
   public async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -46,12 +48,7 @@ class AuthenticateUserService {
       throw new AppError(getMessage('users.auth.invalid'), 401)
     }
 
-    const { secret, expiresIn } = authConfig.jwt
-
-    const token = sign({}, secret, {
-      subject: user.id,
-      expiresIn
-    })
+    const token = await this.tokenProvider.generateToken(user)
 
     return { user, token }
   }
