@@ -1,4 +1,3 @@
-import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 import { injectable, inject } from 'tsyringe'
 import authConfig from '@config/auth'
@@ -9,6 +8,7 @@ import getMessage from '@shared/services/GetMessageService'
 import AppError from '@shared/errors/AppError'
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository'
+import IHashProvider from '../providers/HashProvider/models/IHashProvider'
 
 interface IRequest {
   email: string
@@ -24,7 +24,10 @@ interface IResponse {
 class AuthenticateUserService {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository
+    private usersRepository: IUsersRepository,
+
+    @inject('HashProvider')
+    private hashProvider: IHashProvider
   ) {}
 
   public async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -34,7 +37,10 @@ class AuthenticateUserService {
       throw new AppError(getMessage('users.auth.invalid'), 401)
     }
 
-    const passwordMatched = await compare(password, user.password)
+    const passwordMatched = await this.hashProvider.compareHash(
+      password,
+      user.password
+    )
 
     if (!passwordMatched) {
       throw new AppError(getMessage('users.auth.invalid'), 401)
