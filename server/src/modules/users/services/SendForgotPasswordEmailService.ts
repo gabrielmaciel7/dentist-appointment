@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe'
+import path from 'path'
 
 import getMessage from '@shared/services/GetMessageService'
 import AppError from '@shared/errors/AppError'
@@ -33,6 +34,13 @@ class SendForgotPasswordEmailService {
 
     const { token } = await this.userTokensRepository.generate(user.id)
 
+    const forgotPasswordTemplate = path.resolve(
+      __dirname,
+      '..',
+      'views',
+      'forgot_password.hbs'
+    )
+
     await this.mailProvider.sendMail({
       to: {
         name: user.name,
@@ -40,10 +48,10 @@ class SendForgotPasswordEmailService {
       },
       subject: '[Whiteeth] Password recovery',
       templateData: {
-        template: 'Hello, {{name}}. Your token is: {{token}}',
+        file: forgotPasswordTemplate,
         variables: {
           name: user.name,
-          token
+          link: `${process.env.BASE_URL_WEB}/reset_password?token=${token}`
         }
       }
     })
