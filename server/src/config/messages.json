@@ -27,8 +27,10 @@
   "users.auth.invalid": "Incorrect data.",
 
   "users.forgot.not_exists": "User does not exists.",
-  "users.forgot.reset_password.token.not_exists": "User token does not exists.",
-  "users.forgot.reset_password.user.not_exists": "User does not exists.",
+  
+  "users.reset_password.token.not_exists": "User token does not exists.",
+  "users.reset_password.token.expired": "Token expired.",
+  "users.reset_password.user.not_exists": "User does not exists.",
 
   "jwt.auth.missing": "JWT token is missing.",
   "jwt.auth.invalid": "Invalid JWT token.",
