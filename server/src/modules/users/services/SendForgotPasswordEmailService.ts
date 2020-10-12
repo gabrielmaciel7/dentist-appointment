@@ -1,7 +1,5 @@
 import { injectable, inject } from 'tsyringe'
 
-// import User from '@modules/users/infra/typeorm/entities/User'
-
 import getMessage from '@shared/services/GetMessageService'
 import AppError from '@shared/errors/AppError'
 
@@ -19,11 +17,11 @@ class SendForgotPasswordEmailService {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
-    @inject('MailProvider')
-    private mailProvider: IMailProvider,
-
     @inject('UserTokensRepository')
-    private userTokensRepository: IUserTokensRepository
+    private userTokensRepository: IUserTokensRepository,
+
+    @inject('MailProvider')
+    private mailProvider: IMailProvider
   ) {}
 
   public async execute({ email }: IRequest): Promise<void> {
@@ -35,10 +33,20 @@ class SendForgotPasswordEmailService {
 
     const { token } = await this.userTokensRepository.generate(user.id)
 
-    await this.mailProvider.sendMail(
-      email,
-      `Password recovery message. ${token}`
-    )
+    await this.mailProvider.sendMail({
+      to: {
+        name: user.name,
+        email: user.email
+      },
+      subject: '[Whiteeth] Password recovery',
+      templateData: {
+        template: 'Hello, {{name}}. Your token is: {{token}}',
+        variables: {
+          name: user.name,
+          token
+        }
+      }
+    })
   }
 }
 
