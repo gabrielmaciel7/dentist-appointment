@@ -24,7 +24,7 @@ class FakeUsersRepository implements IUsersRepository {
     name,
     email,
     password,
-    avatar
+    avatar = ''
   }: ICreateUserDTO): Promise<User> {
     const user = new User()
 

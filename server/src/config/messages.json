@@ -32,6 +32,13 @@
   "users.reset_password.token.expired": "Token expired.",
   "users.reset_password.user.not_exists": "User does not exists.",
 
+  "profile.update.user.not_found": "User not found.",
+  "profile.update.email.already_used": "Email already in use.",
+  "profile.update.old_password.required": "You need to inform the old password to set a new password.",
+  "profile.update.old_password.incorrect": "Old password does not match.",
+
+  "profile.show.user.not_found": "User not found.",
+
   "jwt.auth.missing": "JWT token is missing.",
   "jwt.auth.invalid": "Invalid JWT token.",
 
