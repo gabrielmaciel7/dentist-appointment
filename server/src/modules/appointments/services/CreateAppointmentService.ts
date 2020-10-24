@@ -1,4 +1,4 @@
-import { startOfHour } from 'date-fns'
+import { startOfHour, isBefore, getHours } from 'date-fns'
 import { inject, injectable } from 'tsyringe'
 
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment'
@@ -22,6 +22,18 @@ class CreateAppointmentService {
     user_id
   }: ICreateAppointmentDTO): Promise<Appointment> {
     const appointmentDate = startOfHour(date)
+
+    if (isBefore(appointmentDate, Date.now())) {
+      throw new AppError(getMessage('appointments.create.past_date'))
+    }
+
+    if (user_id === provider_id) {
+      throw new AppError(getMessage('appointments.create.invalid_provider'))
+    }
+
+    if (getHours(appointmentDate) < 8 || getHours(appointmentDate) > 17) {
+      throw new AppError(getMessage('appointments.create.invalid_hour'))
+    }
 
     const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(
       appointmentDate

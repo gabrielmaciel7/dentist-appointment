@@ -6,6 +6,8 @@ import AppError from '@shared/errors/AppError'
 let fakeAppointmentsRepository: FakeAppointmentsRepository
 let createAppointment: CreateAppointmentService
 
+const oneHour = 60 * 60 * 1000
+
 describe('CreateAppointment', () => {
   beforeEach(() => {
     fakeAppointmentsRepository = new FakeAppointmentsRepository()
@@ -14,29 +16,29 @@ describe('CreateAppointment', () => {
 
   it('should be able to create a new appointment', async () => {
     const appointment = await createAppointment.execute({
-      date: new Date(),
-      provider_id: '2121212',
-      user_id: '2121212'
+      date: new Date(Date.now() + oneHour),
+      provider_id: 'provider-id',
+      user_id: 'user-id'
     })
 
     expect(appointment).toHaveProperty('id')
-    expect(appointment.provider_id).toBe('2121212')
+    expect(appointment.provider_id).toBe('provider-id')
   })
 
   it('should not be able to create two appointments on the same time', async () => {
-    const appointmentDate = new Date()
+    const appointmentDate = new Date(Date.now() + oneHour)
 
     await createAppointment.execute({
       date: appointmentDate,
-      user_id: '2121212',
-      provider_id: '2121212'
+      user_id: 'user-id',
+      provider_id: 'provider-id'
     })
 
     expect(
       createAppointment.execute({
         date: appointmentDate,
-        provider_id: '2121212',
-        user_id: '2121212'
+        provider_id: 'provider-id',
+        user_id: 'user-id'
       })
     ).rejects.toBeInstanceOf(AppError)
   })
