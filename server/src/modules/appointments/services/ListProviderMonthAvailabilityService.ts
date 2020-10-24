@@ -1,7 +1,8 @@
 import { injectable, inject } from 'tsyringe'
-import { getDaysInMonth, getDate } from 'date-fns'
+import { getDaysInMonth, getDate, isAfter, isToday } from 'date-fns'
 
 import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository'
+import { compare } from 'bcryptjs'
 
 interface IRequest {
   provider_id: string
@@ -38,13 +39,43 @@ class ListProviderMonthAvailabilityService {
     )
 
     const availability = eachDayArray.map(day => {
-      const appointmentsInDay = appointments.filter(
-        appointment => getDate(appointment.date) === day
+      const currentDate = new Date(Date.now())
+      const compareDate = new Date(year, month - 1, day)
+
+      const hourEnd = 17
+      const hoursAvailablePerDay = 10
+
+      const appointmentsInDay = appointments.filter(appointment =>
+        isToday(compareDate)
+          ? getDate(appointment.date) === day && appointment.date > currentDate
+          : getDate(appointment.date) === day
       )
+
+      console.log('day', day)
+      console.log('appointmentsInDay', appointmentsInDay.length)
+      console.log(
+        'available',
+        isToday(compareDate)
+          ? hourEnd - currentDate.getHours()
+          : hoursAvailablePerDay
+      )
+      console.log(
+        'availableBool',
+        isToday(compareDate)
+          ? appointmentsInDay.length < hourEnd - currentDate.getHours()
+          : appointmentsInDay.length < hoursAvailablePerDay
+      )
+      console.log()
+
+      const followingDay = new Date(compareDate)
 
       return {
         day,
-        available: appointmentsInDay.length < 10
+        available: isAfter(followingDay.setHours(24), currentDate)
+          ? isToday(compareDate)
+            ? appointmentsInDay.length < hourEnd - currentDate.getHours()
+            : appointmentsInDay.length < hoursAvailablePerDay
+          : false
       }
     })
 

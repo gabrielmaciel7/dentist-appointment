@@ -33,9 +33,10 @@ class ListProviderDayAvailabilityService {
     )
 
     const hourStart = 8
+    const hoursAvailablePerDay = 10
 
     const eachHourArray = Array.from(
-      { length: 10 },
+      { length: hoursAvailablePerDay },
       (_, index) => index + hourStart
     )
 
