@@ -1,9 +1,13 @@
 import FakeAppointmentsRepository from '@modules/appointments/repositories/fakes/FakeAppointmentsRepository'
+import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository'
+
 import CreateAppointmentService from '@modules/appointments/services/CreateAppointmentService'
 
 import AppError from '@shared/errors/AppError'
 
 let fakeAppointmentsRepository: FakeAppointmentsRepository
+let fakeNotificationsRepository: FakeNotificationsRepository
+
 let createAppointment: CreateAppointmentService
 
 const oneHour = 60 * 60 * 1000
@@ -11,7 +15,12 @@ const oneHour = 60 * 60 * 1000
 describe('CreateAppointment', () => {
   beforeEach(() => {
     fakeAppointmentsRepository = new FakeAppointmentsRepository()
-    createAppointment = new CreateAppointmentService(fakeAppointmentsRepository)
+    fakeNotificationsRepository = new FakeNotificationsRepository()
+
+    createAppointment = new CreateAppointmentService(
+      fakeAppointmentsRepository,
+      fakeNotificationsRepository
+    )
   })
 
   it('should be able to create a new appointment', async () => {
