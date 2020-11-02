@@ -2,7 +2,6 @@ import { injectable, inject } from 'tsyringe'
 import { getDaysInMonth, getDate, isAfter, isToday } from 'date-fns'
 
 import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository'
-import { compare } from 'bcryptjs'
 
 interface IRequest {
   provider_id: string
