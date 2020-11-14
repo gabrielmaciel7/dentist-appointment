@@ -81,8 +81,6 @@ class AppointmentsRepository implements IAppointmentsRepository {
       relations: ['user']
     })
 
-    appointments.forEach(appointment => delete appointment.user.password)
-
     return appointments
   }
 }

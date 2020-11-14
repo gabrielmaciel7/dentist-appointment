@@ -14,8 +14,6 @@ export default class ProvidersController {
       user_id
     })
 
-    providers.forEach(provider => delete provider.password)
-
     return response.json(classToClass(providers))
   }
 }
