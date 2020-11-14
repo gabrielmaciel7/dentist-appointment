@@ -44,7 +44,8 @@ class CreateAppointmentService {
     }
 
     const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(
-      appointmentDate
+      appointmentDate,
+      provider_id
     )
 
     if (findAppointmentInSameDate) {
@@ -57,11 +58,11 @@ class CreateAppointmentService {
       date: appointmentDate
     })
 
-    const dateFormated = format(appointmentDate, 'yyyy-MM-dd HH:mm')
+    const dateFormatted = format(appointmentDate, 'yyyy-MM-dd HH:mm')
 
     await this.notificationsRepository.create({
       recipient_id: provider_id,
-      content: `New appointment: ${dateFormated}`
+      content: `New appointment: ${dateFormatted}`
     })
 
     await this.cacheProvider.invalidate(
