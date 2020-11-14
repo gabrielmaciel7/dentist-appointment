@@ -45,5 +45,6 @@
   "jwt.auth.missing": "JWT token is missing.",
   "jwt.auth.invalid": "Invalid JWT token.",
 
-  "server.internal_error": "Internal server error."
+  "server.internal_error": "Internal server error.",
+  "server.rate_limiter": "Too many requests."
 }
