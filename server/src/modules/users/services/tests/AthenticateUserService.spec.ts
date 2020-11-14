@@ -1,5 +1,6 @@
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository'
 import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider'
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider'
 import JwtTokenProvider from '@modules/users/providers/TokenProvider/implementations/JwtTokenProvider'
 
 import AuthenticateUserService from '@modules/users/services/AuthenticateUserService'
@@ -9,6 +10,8 @@ import AppError from '@shared/errors/AppError'
 
 let fakeUsersRepository: FakeUsersRepository
 let fakeHashProvider: FakeHashProvider
+let fakeCacheProvider: FakeCacheProvider
+
 let tokenProvider: JwtTokenProvider
 
 let authenticateUser: AuthenticateUserService
@@ -18,6 +21,7 @@ describe('AuthenticateUser', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository()
     fakeHashProvider = new FakeHashProvider()
+    fakeCacheProvider = new FakeCacheProvider()
     tokenProvider = new JwtTokenProvider()
 
     authenticateUser = new AuthenticateUserService(
@@ -26,7 +30,11 @@ describe('AuthenticateUser', () => {
       tokenProvider
     )
 
-    createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider)
+    createUser = new CreateUserService(
+      fakeUsersRepository,
+      fakeHashProvider,
+      fakeCacheProvider
+    )
   })
 
   it('should be able to authenticate', async () => {

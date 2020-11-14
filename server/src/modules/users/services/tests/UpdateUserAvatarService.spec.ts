@@ -1,6 +1,7 @@
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository'
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider'
 import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider'
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider'
 
 import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService'
 import CreateUserService from '@modules/users/services/CreateUserService'
@@ -10,6 +11,7 @@ import AppError from '@shared/errors/AppError'
 let fakeUsersRepository: FakeUsersRepository
 let fakeStorageProvider: FakeStorageProvider
 let fakeHashProvider: FakeHashProvider
+let fakeCacheProvider: FakeCacheProvider
 
 let createUser: CreateUserService
 let updateUserAvatar: UpdateUserAvatarService
@@ -19,8 +21,13 @@ describe('UpdateUserAvatar', () => {
     fakeUsersRepository = new FakeUsersRepository()
     fakeStorageProvider = new FakeStorageProvider()
     fakeHashProvider = new FakeHashProvider()
+    fakeCacheProvider = new FakeCacheProvider()
 
-    createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider)
+    createUser = new CreateUserService(
+      fakeUsersRepository,
+      fakeHashProvider,
+      fakeCacheProvider
+    )
     updateUserAvatar = new UpdateUserAvatarService(
       fakeUsersRepository,
       fakeStorageProvider
@@ -59,16 +66,6 @@ describe('UpdateUserAvatar', () => {
 
   it('should be able to delete old avatar when updating new one', async () => {
     const deleteFile = jest.spyOn(fakeStorageProvider, 'deleteFile')
-
-    const createUser = new CreateUserService(
-      fakeUsersRepository,
-      fakeHashProvider
-    )
-
-    const updateUserAvatar = new UpdateUserAvatarService(
-      fakeUsersRepository,
-      fakeStorageProvider
-    )
 
     const user = await createUser.execute({
       name: 'John Doe',
