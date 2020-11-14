@@ -50,22 +50,6 @@ class ListProviderMonthAvailabilityService {
           : getDate(appointment.date) === day
       )
 
-      console.log('day', day)
-      console.log('appointmentsInDay', appointmentsInDay.length)
-      console.log(
-        'available',
-        isToday(compareDate)
-          ? hourEnd - currentDate.getHours()
-          : hoursAvailablePerDay
-      )
-      console.log(
-        'availableBool',
-        isToday(compareDate)
-          ? appointmentsInDay.length < hourEnd - currentDate.getHours()
-          : appointmentsInDay.length < hoursAvailablePerDay
-      )
-      console.log()
-
       const followingDay = new Date(compareDate)
 
       return {
