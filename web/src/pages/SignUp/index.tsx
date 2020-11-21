@@ -61,7 +61,6 @@ const SignUp: React.FC = () => {
           password: data.password,
           password_confirmation: data.password_confirmation
         })
-        setRequestingServer(false)
 
         history.push('/')
 
@@ -71,8 +70,6 @@ const SignUp: React.FC = () => {
           description: getMessage('signup.success')
         })
       } catch (err) {
-        setRequestingServer(false)
-
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err)
 
@@ -86,6 +83,8 @@ const SignUp: React.FC = () => {
           title: 'User creation error.',
           description: err.message
         })
+      } finally {
+        setRequestingServer(false)
       }
     },
     [addToast, history, signUp]

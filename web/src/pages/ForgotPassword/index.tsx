@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
+import { FiArrowLeft, FiMail } from 'react-icons/fi'
 import { Form } from '@unform/web'
 import { FormHandles } from '@unform/core'
 import * as Yup from 'yup'
@@ -10,52 +10,49 @@ import logoImg from '../../assets/logo.svg'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
-import { useAuth } from '../../hooks/auth'
 import { useToast } from '../../hooks/toast'
 
 import getMessage from '../../utils/getMessage'
 import getValidationErrors from '../../utils/getValidationErrors'
 
 import { Container, Content, Background, AnimationContainer } from './styles'
+import api from '../../services/api'
 
-interface signInFormData {
+interface forgotPasswordFormData {
   email: string
-  password: string
 }
 
-const SignIn: React.FC = () => {
+const ForgotPassword: React.FC = () => {
   const [requestingServer, setRequestingServer] = useState(false)
   const formRef = useRef<FormHandles>(null)
   const history = useHistory()
 
-  const { signIn, user } = useAuth()
   const { addToast } = useToast()
 
-  console.log(user)
-
   const handleSubmit = useCallback(
-    async (data: signInFormData) => {
+    async (data: forgotPasswordFormData) => {
       formRef.current && formRef.current.setErrors({})
 
       try {
         const schema = Yup.object().shape({
           email: Yup.string()
             .required(getMessage('signin.email.required'))
-            .email(getMessage('signin.email.invalid')),
-          password: Yup.string().min(4, getMessage('signin.password.invalid'))
+            .email(getMessage('signin.email.invalid'))
         })
 
         await schema.validate(data, { abortEarly: false })
 
         setRequestingServer(true)
-        await signIn({ email: data.email, password: data.password })
+        await api.post('/password/forgot', {
+          email: data.email
+        })
 
-        history.push('/dashboard')
+        // history.push('/dashboard')
 
         addToast({
           type: 'success',
-          title: 'Successful authentication.',
-          description: getMessage('signin.success')
+          title: 'Email successfully sent.',
+          description: getMessage('forgot.email.success')
         })
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -68,52 +65,44 @@ const SignIn: React.FC = () => {
 
         addToast({
           type: 'error',
-          title: 'Authentication error.',
-          description: err.message
+          title: 'Password recovery error.',
+          description: err.response.data.message
         })
       } finally {
         setRequestingServer(false)
       }
     },
-    [signIn, addToast, history]
+    [addToast, history]
   )
 
   return (
     <Container>
+      <Background />
+
       <Content>
         <AnimationContainer>
           <img src={logoImg} alt="Whiteeth" />
 
           <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Sign in</h1>
+            <h1>Password recovery</h1>
 
             <Input name="email" placeholder="E-mail" icon={FiMail} />
-            <Input
-              name="password"
-              type="password"
-              placeholder="Password"
-              icon={FiLock}
-            />
 
             {requestingServer ? (
-              <Button disabled>Logging in...</Button>
+              <Button disabled>Sending email...</Button>
             ) : (
-              <Button type="submit">Login</Button>
+              <Button type="submit">Recover</Button>
             )}
-
-            <Link to="forgot-password">Forgot password?</Link>
           </Form>
 
-          <Link to="/signup">
-            <FiLogIn />
-            Create an account
+          <Link to="/">
+            <FiArrowLeft />
+            Back to sign in
           </Link>
         </AnimationContainer>
       </Content>
-
-      <Background />
     </Container>
   )
 }
 
-export default SignIn
+export default ForgotPassword
