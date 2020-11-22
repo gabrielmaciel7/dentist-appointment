@@ -23,7 +23,7 @@ interface forgotPasswordFormData {
 }
 
 const ForgotPassword: React.FC = () => {
-  const [requestingServer, setRequestingServer] = useState(false)
+  const [loading, setLoading] = useState(false)
   const formRef = useRef<FormHandles>(null)
   const history = useHistory()
 
@@ -42,12 +42,12 @@ const ForgotPassword: React.FC = () => {
 
         await schema.validate(data, { abortEarly: false })
 
-        setRequestingServer(true)
+        setLoading(true)
         await api.post('/password/forgot', {
           email: data.email
         })
 
-        // history.push('/dashboard')
+        history.push('/')
 
         addToast({
           type: 'success',
@@ -67,9 +67,11 @@ const ForgotPassword: React.FC = () => {
           type: 'error',
           title: 'Password recovery error.',
           description: err.response.data.message
+            ? err.response.data.message
+            : getMessage('server.internal_error')
         })
       } finally {
-        setRequestingServer(false)
+        setLoading(false)
       }
     },
     [addToast, history]
@@ -88,11 +90,9 @@ const ForgotPassword: React.FC = () => {
 
             <Input name="email" placeholder="E-mail" icon={FiMail} />
 
-            {requestingServer ? (
-              <Button disabled>Sending email...</Button>
-            ) : (
-              <Button type="submit">Recover</Button>
-            )}
+            <Button type="submit" loading={loading}>
+              Recover
+            </Button>
           </Form>
 
           <Link to="/">

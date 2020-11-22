@@ -26,7 +26,7 @@ interface SignUpFormData {
 }
 
 const SignUp: React.FC = () => {
-  const [requestingServer, setRequestingServer] = useState(false)
+  const [loading, setLoading] = useState(false)
   const formRef = useRef<FormHandles>(null)
   const history = useHistory()
 
@@ -54,7 +54,7 @@ const SignUp: React.FC = () => {
 
         await schema.validate(data, { abortEarly: false })
 
-        setRequestingServer(true)
+        setLoading(true)
         await signUp({
           name: data.name,
           email: data.email,
@@ -84,7 +84,7 @@ const SignUp: React.FC = () => {
           description: err.message
         })
       } finally {
-        setRequestingServer(false)
+        setLoading(false)
       }
     },
     [addToast, history, signUp]
@@ -116,11 +116,9 @@ const SignUp: React.FC = () => {
               icon={FiLock}
             />
 
-            {requestingServer ? (
-              <Button disabled>Signing up...</Button>
-            ) : (
-              <Button type="submit">Register</Button>
-            )}
+            <Button type="submit" loading={loading}>
+              Register
+            </Button>
           </Form>
 
           <Link to="/">

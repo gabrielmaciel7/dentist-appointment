@@ -57,7 +57,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       setAuthData({ token, user })
     } catch (err) {
       throw new Error(
-        err.response
+        err.response.data.message
           ? err.response.data.message
           : getMessage('server.internal_error')
       )
@@ -75,7 +75,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         })
       } catch (err) {
         throw new Error(
-          err.response
+          err.response.data.message
             ? err.response.data.message
             : getMessage('server.internal_error')
         )

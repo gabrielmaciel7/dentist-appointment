@@ -24,7 +24,7 @@ interface signInFormData {
 }
 
 const SignIn: React.FC = () => {
-  const [requestingServer, setRequestingServer] = useState(false)
+  const [loading, setLoading] = useState(false)
   const formRef = useRef<FormHandles>(null)
   const history = useHistory()
 
@@ -47,7 +47,7 @@ const SignIn: React.FC = () => {
 
         await schema.validate(data, { abortEarly: false })
 
-        setRequestingServer(true)
+        setLoading(true)
         await signIn({ email: data.email, password: data.password })
 
         history.push('/dashboard')
@@ -72,7 +72,7 @@ const SignIn: React.FC = () => {
           description: err.message
         })
       } finally {
-        setRequestingServer(false)
+        setLoading(false)
       }
     },
     [signIn, addToast, history]
@@ -95,11 +95,9 @@ const SignIn: React.FC = () => {
               icon={FiLock}
             />
 
-            {requestingServer ? (
-              <Button disabled>Logging in...</Button>
-            ) : (
-              <Button type="submit">Login</Button>
-            )}
+            <Button type="submit" loading={loading}>
+              Login
+            </Button>
 
             <Link to="forgot-password">Forgot password?</Link>
           </Form>
