@@ -29,5 +29,11 @@
 
   "server.internal_error": "Internal server error.",
 
-  "forgot.email.success": "Recovery email sent successfully. Check your email box."
+  "forgot.email.success": "Recovery email sent successfully. Check your email box.",
+
+  "reset.password.success": "Password successfully changed.",
+  "reset.password.error": "An error occurred while resetting the password.",
+  "reset.password.invalid": "Password must be at least 4 digits.",
+  "reset.password_confirmation.required": "Password confirmation is required.",
+  "reset.password_confirmation.invalid": "Password confirmation must be equal the password."
 }
