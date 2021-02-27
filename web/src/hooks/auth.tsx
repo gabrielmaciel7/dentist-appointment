@@ -4,6 +4,12 @@ import api from '../services/api'
 
 import getMessage from '../utils/getMessage'
 
+interface User {
+  id: string
+  name: string
+  avatar_url: string
+}
+
 interface SignInCredentials {
   email: string
   password: string
@@ -18,11 +24,11 @@ interface SignUpCredentials {
 
 interface SignInData {
   token: string
-  user: Record<string, unknown>
+  user: User
 }
 
 interface AuthContextData {
-  user: Record<string, unknown>
+  user: User
   signIn(credentials: SignInCredentials): Promise<void>
   signUp(credentials: SignUpCredentials): Promise<void>
   signOut(): void
