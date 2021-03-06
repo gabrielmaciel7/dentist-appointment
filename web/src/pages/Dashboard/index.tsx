@@ -1,9 +1,18 @@
 import React from 'react'
 
-import { Container, Header, HeaderContent, Profile } from './styles'
+import {
+  Container,
+  Header,
+  HeaderContent,
+  Profile,
+  Content,
+  Schedule,
+  NextAppointment,
+  Calendar
+} from './styles'
 
 import logoImg from '../../assets/logo02.svg'
-import { FiPower } from 'react-icons/fi'
+import { FiClock, FiPower } from 'react-icons/fi'
 
 import { useAuth } from '../../hooks/auth'
 
@@ -28,7 +37,7 @@ const Dashboard: React.FC = () => {
               />
 
               <div>
-                <span>Bem-vindo,</span>
+                <span>Welcome</span>
                 <strong>{user.name}</strong>
               </div>
             </Profile>
@@ -39,6 +48,35 @@ const Dashboard: React.FC = () => {
           </div>
         </HeaderContent>
       </Header>
+
+      <Content>
+        <Schedule>
+          <h1>Schedules</h1>
+          <p>
+            <span>Today</span>
+            <span>March 6</span>
+            <span>Saturday</span>
+          </p>
+
+          <NextAppointment>
+            <strong>Next appointment</strong>
+            <div>
+              <img
+                src="https://github.com/gabrielmaciel7.png"
+                alt="Gabriel Maciel"
+              />
+
+              <strong>Gabriel Maciel</strong>
+              <span>
+                <FiClock />
+                11:00
+              </span>
+            </div>
+          </NextAppointment>
+        </Schedule>
+
+        <Calendar />
+      </Content>
     </Container>
   )
 }

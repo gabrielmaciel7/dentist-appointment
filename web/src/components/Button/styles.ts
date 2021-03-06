@@ -16,6 +16,9 @@ export const Container = styled.button`
   align-items: center;
   justify-content: center;
 
+  font-family: Quicksand;
+  font-weight: 400;
+
   &:hover {
     background: ${shade(0.2, '#28423c')};
   }
