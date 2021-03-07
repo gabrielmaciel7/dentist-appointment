@@ -73,7 +73,7 @@ export const Profile = styled.div`
 export const Content = styled.main`
   width: 90%;
   max-width: 1120px;
-  margin: 64px auto;
+  margin: 48px auto;
   display: flex;
 `
 
@@ -83,17 +83,17 @@ export const Schedule = styled.div`
 
   h1 {
     font-family: Quicksand;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 36px;
     color: #28423c;
   }
 
   p {
     margin-top: 8px;
-    color: #000000;
+    color: #28423c;
     display: flex;
     align-items: center;
-    font-weight: 700;
+    font-weight: 400;
 
     span {
       display: flex;
@@ -111,7 +111,7 @@ export const Schedule = styled.div`
 `
 
 export const NextAppointment = styled.div`
-  margin-top: 64px;
+  margin-top: 48px;
 
   > strong {
     color: #000;
@@ -132,7 +132,7 @@ export const NextAppointment = styled.div`
       content: '';
       position: absolute;
       height: 80%;
-      width: 1px;
+      width: 2px;
       left: 0;
       top: 10%;
       background: #84dcc6;
