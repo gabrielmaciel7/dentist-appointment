@@ -53,9 +53,7 @@ const Dashboard: React.FC = () => {
         <Schedule>
           <h1>Schedules</h1>
           <p>
-            <span>Today</span>
-            <span>March 6</span>
-            <span>Saturday</span>
+            <span>Thursday, December 20, 2021</span>
           </p>
 
           <NextAppointment>

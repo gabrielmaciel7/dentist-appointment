@@ -99,14 +99,6 @@ export const Schedule = styled.div`
       display: flex;
       align-items: center;
     }
-
-    span + span::before {
-      content: '';
-      width: 1px;
-      height: 12px;
-      background: #000;
-      margin: 0 8px;
-    }
   }
 `
 
