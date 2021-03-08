@@ -50,13 +50,13 @@ export const AnimationContainer = styled.div`
 
     h1 {
       margin-bottom: 24px;
-      color: #28423c;
+      color: #000;
       font-family: Quicksand;
       font-weight: 400;
     }
 
     a {
-      color: #28423c;
+      color: #000;
       display: block;
       margin-top: 16px;
       text-decoration: none;
@@ -69,7 +69,7 @@ export const AnimationContainer = styled.div`
   }
 
   > a {
-    color: #28423c;
+    color: #000;
     display: block;
     text-decoration: none;
     font-weight: 700;

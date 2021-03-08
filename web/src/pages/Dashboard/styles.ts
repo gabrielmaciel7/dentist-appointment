@@ -85,15 +85,15 @@ export const Schedule = styled.div`
     font-family: Quicksand;
     font-weight: 400;
     font-size: 36px;
-    color: #28423c;
+    color: #000;
   }
 
   p {
     margin-top: 8px;
-    color: #28423c;
+    color: #000;
     display: flex;
     align-items: center;
-    font-weight: 400;
+    font-weight: 700;
 
     span {
       display: flex;
@@ -104,7 +104,7 @@ export const Schedule = styled.div`
       content: '';
       width: 1px;
       height: 12px;
-      background: #28423c;
+      background: #000;
       margin: 0 8px;
     }
   }
