@@ -44,19 +44,21 @@ export const AnimationContainer = styled.div`
   }
 
   form {
-    margin: 80px 0;
+    margin: 48px 0;
     width: 340px;
     text-align: center;
 
     h1 {
       margin-bottom: 24px;
       color: #28423c;
+      font-family: Quicksand;
+      font-weight: 400;
     }
 
     a {
       color: #28423c;
       display: block;
-      margin-top: 24px;
+      margin-top: 16px;
       text-decoration: none;
       transition: color 0.2s;
 
