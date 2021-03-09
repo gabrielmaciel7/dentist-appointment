@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
   Container,
@@ -8,6 +8,7 @@ import {
   Content,
   Schedule,
   NextAppointment,
+  Appointment,
   Calendar
 } from './styles'
 
@@ -17,6 +18,8 @@ import { FiClock, FiPower } from 'react-icons/fi'
 import { useAuth } from '../../hooks/auth'
 
 const Dashboard: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date())
+
   const { signOut, user } = useAuth()
 
   return (
@@ -53,23 +56,54 @@ const Dashboard: React.FC = () => {
         <Schedule>
           <h1>Schedules</h1>
           <p>
-            <span>Thursday, December 20, 2021</span>
+            <span>
+              {selectedDate.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </span>
           </p>
 
           <NextAppointment>
-            <strong>Next appointment</strong>
-            <div>
+            <strong>Next appointments</strong>
+            <Appointment>
               <img
                 src="https://github.com/gabrielmaciel7.png"
                 alt="Gabriel Maciel"
               />
 
-              <strong>Gabriel Maciel</strong>
+              <p>Gabriel Maciel</p>
               <span>
                 <FiClock />
                 11:00
               </span>
-            </div>
+            </Appointment>
+            <Appointment>
+              <img
+                src="https://github.com/gabrielmaciel7.png"
+                alt="Gabriel Maciel"
+              />
+
+              <p>Gabriel Maciel</p>
+              <span>
+                <FiClock />
+                11:00
+              </span>
+            </Appointment>
+            <Appointment>
+              <img
+                src="https://github.com/gabrielmaciel7.png"
+                alt="Gabriel Maciel"
+              />
+
+              <p>Gabriel Maciel</p>
+              <span>
+                <FiClock />
+                11:00
+              </span>
+            </Appointment>
           </NextAppointment>
         </Schedule>
 
