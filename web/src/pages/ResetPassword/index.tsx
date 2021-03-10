@@ -8,7 +8,6 @@ import * as Yup from 'yup'
 import logoImg from '../../assets/logo.svg'
 
 import { useToast } from '../../hooks/toast'
-import { useAuth } from '../../hooks/auth'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'

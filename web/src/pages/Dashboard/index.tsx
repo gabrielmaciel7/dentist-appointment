@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 
 import DayPicker, { DayModifiers } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
@@ -19,15 +19,43 @@ import logoImg from '../../assets/logo02.svg'
 import { FiClock, FiPower } from 'react-icons/fi'
 
 import { useAuth } from '../../hooks/auth'
+import api from '../../services/api'
+
+interface MonthAvailabilityItem {
+  day: number
+  available: boolean
+}
 
 const Dashboard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(new Date())
+  const [currentMonth, setCurrentMonth] = useState(new Date())
+
+  const [monthAvailability, setMonthAvailability] = useState<
+    MonthAvailabilityItem[]
+  >([])
 
   const { signOut, user } = useAuth()
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
     if (modifiers.available) setSelectedDate(day)
   }, [])
+
+  const handleMonthChange = useCallback((month: Date) => {
+    setCurrentMonth(month)
+  }, [])
+
+  useEffect(() => {
+    api
+      .get(`/providers/${user.id}/month-availability`, {
+        params: {
+          year: currentMonth.getFullYear(),
+          month: currentMonth.getMonth() + 1
+        }
+      })
+      .then(response => {
+        setMonthAvailability(response.data)
+      })
+  }, [currentMonth, user])
 
   return (
     <Container>
@@ -74,7 +102,7 @@ const Dashboard: React.FC = () => {
           </p>
 
           <NextAppointment>
-            <strong>Next appointments</strong>
+            <strong>Appointments</strong>
 
             <Appointment>
               <img
@@ -124,6 +152,7 @@ const Dashboard: React.FC = () => {
             }}
             selectedDays={selectedDate}
             onDayClick={handleDateChange}
+            onMonthChange={handleMonthChange}
           />
         </Calendar>
       </Content>
