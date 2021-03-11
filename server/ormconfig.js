@@ -1,6 +1,4 @@
-import { createConnections } from 'typeorm'
-
-createConnections([
+module.exports = [
   {
     name: 'default',
     type: 'postgres',
@@ -22,4 +20,4 @@ createConnections([
     useUnifiedTopology: true,
     entities: [process.env.TYPEORM_MONGODB_ENTITIES]
   }
-])
+]
