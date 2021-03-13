@@ -13,8 +13,8 @@ module.exports = [
       migrationsDir: process.env.TYPEORM_POSTGRES_MIGRATIONS_DIR
     },
     ////PROD
-    // ssl: true,
     // ssl: {
+    //   ssl: true,
     //   rejectUnauthorized: false,
     // }
   },
@@ -23,6 +23,11 @@ module.exports = [
     type: 'mongodb',
     url: process.env.TYPEORM_MONGODB_URI,
     useUnifiedTopology: true,
-    entities: [process.env.TYPEORM_MONGODB_ENTITIES]
+    entities: [process.env.TYPEORM_MONGODB_ENTITIES],
+    ////PROD
+    // ssl: {
+    //   ssl: true,
+    //   rejectUnauthorized: false,
+    // }
   }
 ]

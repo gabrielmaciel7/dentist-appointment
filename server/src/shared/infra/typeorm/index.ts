@@ -14,6 +14,11 @@ createConnections([
     cli: {
       migrationsDir: process.env.TYPEORM_POSTGRES_MIGRATIONS_DIR
     }
+    /// /PROD
+    // ssl: {
+    //   ssl: true,
+    //   rejectUnauthorized: false,
+    // }
   },
   {
     name: 'mongo',
@@ -21,5 +26,10 @@ createConnections([
     url: process.env.TYPEORM_MONGODB_URI,
     useUnifiedTopology: true,
     entities: [process.env.TYPEORM_MONGODB_ENTITIES]
+    /// /PROD
+    // ssl: {
+    //   ssl: true,
+    //   rejectUnauthorized: false,
+    // }
   }
 ])
