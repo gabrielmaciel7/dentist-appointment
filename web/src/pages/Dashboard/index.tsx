@@ -28,6 +28,7 @@ interface MonthAvailabilityItem {
 
 const Dashboard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(new Date())
+
   const [currentMonth, setCurrentMonth] = useState(new Date())
 
   const [monthAvailability, setMonthAvailability] = useState<
@@ -56,6 +57,31 @@ const Dashboard: React.FC = () => {
         setMonthAvailability(response.data)
       })
   }, [currentMonth, user])
+
+  useEffect(() => {
+    if (
+      monthAvailability.length > 0 &&
+      currentMonth.getMonth() === selectedDate.getMonth() &&
+      (monthAvailability.some(
+        avilable =>
+          avilable.day === selectedDate.getDate() && !avilable.available
+      ) ||
+        [0, 6].some(day => day === selectedDate.getDay()))
+    ) {
+      const newDate = new Date(selectedDate)
+
+      do {
+        newDate.setDate(newDate.getDate() + 1)
+      } while (
+        monthAvailability.some(
+          avilable => avilable.day === newDate.getDate() && !avilable.available
+        ) ||
+        [0, 6].some(day => day === newDate.getDay())
+      )
+
+      setSelectedDate(newDate)
+    }
+  }, [monthAvailability, currentMonth, selectedDate])
 
   const disabledDays = useMemo(() => {
     const dates = monthAvailability
