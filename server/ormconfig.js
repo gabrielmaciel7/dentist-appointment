@@ -11,7 +11,12 @@ module.exports = [
     migrations: [process.env.TYPEORM_POSTGRES_MIGRATIONS],
     cli: {
       migrationsDir: process.env.TYPEORM_POSTGRES_MIGRATIONS_DIR
-    }
+    },
+    ////PROD
+    // ssl: true,
+    // ssl: {
+    //   rejectUnauthorized: false,
+    // }
   },
   {
     name: 'mongo',
