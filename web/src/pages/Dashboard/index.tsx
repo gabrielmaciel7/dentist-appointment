@@ -9,6 +9,7 @@ import {
   HeaderContent,
   Profile,
   Content,
+  Title,
   Schedule,
   NextAppointment,
   Appointment,
@@ -126,20 +127,23 @@ const Dashboard: React.FC = () => {
         </HeaderContent>
       </Header>
 
+      <Title>
+        <h1>Schedules</h1>
+        <p>
+          {' '}
+          <span>
+            {selectedDate.toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </span>
+        </p>
+      </Title>
+
       <Content>
         <Schedule>
-          <h1>Schedules</h1>
-          <p>
-            <span>
-              {selectedDate.toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </span>
-          </p>
-
           <NextAppointment>
             <strong>Appointments</strong>
 

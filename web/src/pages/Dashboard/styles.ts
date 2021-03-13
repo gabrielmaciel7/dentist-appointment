@@ -18,6 +18,10 @@ export const HeaderContent = styled.div`
 
   > img {
     height: 60px;
+
+    @media (max-width: 500px) {
+      height: 50px;
+    }
   }
 
   > div {
@@ -30,6 +34,10 @@ export const HeaderContent = styled.div`
     margin-left: 32px;
     background: transparent;
     border: 0;
+
+    @media (max-width: 500px) {
+      margin-left: 16px;
+    }
 
     svg {
       color: #ffa69e;
@@ -52,6 +60,11 @@ export const Profile = styled.div`
     width: 56px;
     height: 56px;
     border-radius: 50%;
+
+    @media (max-width: 500px) {
+      width: 48px;
+      height: 48px;
+    }
   }
 
   div {
@@ -59,6 +72,10 @@ export const Profile = styled.div`
     flex-direction: column;
     margin-left: 16px;
     line-height: 24px;
+
+    @media (max-width: 500px) {
+      display: none;
+    }
 
     span {
       color: #edfff7;
@@ -75,11 +92,19 @@ export const Content = styled.main`
   max-width: 1120px;
   margin: 48px auto;
   display: flex;
+
+  @media (max-width: 700px) {
+    flex-direction: column-reverse;
+  }
 `
 
-export const Schedule = styled.div`
-  flex: 1;
-  margin-right: 120px;
+export const Title = styled.div`
+  width: 90%;
+  max-width: 1120px;
+  margin: 48px auto;
+  display: flex;
+
+  flex-direction: column;
 
   h1 {
     font-family: Quicksand;
@@ -102,9 +127,25 @@ export const Schedule = styled.div`
   }
 `
 
-export const NextAppointment = styled.div`
-  margin-top: 48px;
+export const Schedule = styled.div`
+  flex: 1;
+  margin-right: 120px;
 
+  @media (max-width: 1024px) {
+    margin-right: 60px;
+  }
+
+  @media (max-width: 900px) {
+    margin-right: 30px;
+  }
+
+  @media (max-width: 700px) {
+    margin-right: 0px;
+    margin-top: 48px;
+  }
+`
+
+export const NextAppointment = styled.div`
   > strong {
     color: #000;
     font-size: 20px;
@@ -148,6 +189,11 @@ export const Appointment = styled.div`
     width: 80px;
     height: 80px;
     border-radius: 50%;
+
+    @media (max-width: 500px) {
+      width: 50px;
+      height: 50px;
+    }
   }
 
   p {
@@ -169,6 +215,21 @@ export const Appointment = styled.div`
 
 export const Calendar = styled.aside`
   width: 380px;
+  margin-top: 48px;
+
+  @media (max-width: 1024px) {
+    width: 350px;
+  }
+
+  @media (max-width: 900px) {
+    width: 300px;
+  }
+
+  @media (max-width: 700px) {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 0px;
+  }
 
   .DayPicker {
     background: #28423c;

@@ -29,6 +29,10 @@ export const Content = styled.div`
 
   width: 100%;
   max-width: 700px;
+
+  @media (max-width: 1000px) {
+    max-width: 1024px;
+  }
 `
 
 export const AnimationContainer = styled.div`
@@ -41,12 +45,20 @@ export const AnimationContainer = styled.div`
 
   img {
     width: 340px;
+
+    @media (max-width: 400px) {
+      width: 320px;
+    }
   }
 
   form {
     margin: 48px 0;
     width: 340px;
     text-align: center;
+
+    @media (max-width: 400px) {
+      width: 320px;
+    }
 
     h1 {
       margin-bottom: 24px;

@@ -33,6 +33,10 @@ export const Container = styled.div<ContainerProps>`
 
   ${props => toastTypeVariations[props.type || 'info']}
 
+  @media (max-width: 500px) {
+    width: 300px;
+  }
+
   & + div {
     margin-top: 8px;
   }

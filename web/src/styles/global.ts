@@ -27,4 +27,10 @@ export default createGlobalStyle`
     cursor: pointer;
     font-weight: 700;
   }
+
+  @media (max-width: 400px) {
+    body {
+      font-size: 90%;
+    }
+  }
 `
