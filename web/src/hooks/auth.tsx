@@ -41,13 +41,11 @@ export const AuthProvider: React.FC = ({ children }) => {
     const token = localStorage.getItem('@Whiteeth:token')
     const user = localStorage.getItem('@Whiteeth:user')
 
-    if (token && user) {
-      api.defaults.headers.authorization = `Bearer ${token}`
+    if (!token || !user) return {} as SignInData
 
-      return { token, user: JSON.parse(user) }
-    }
+    api.defaults.headers.authorization = `Bearer ${token}`
 
-    return {} as SignInData
+    return { token, user: JSON.parse(user) }
   })
 
   const signIn = useCallback(async ({ email, password }) => {

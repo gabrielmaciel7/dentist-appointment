@@ -20,8 +20,9 @@ import {
 import logoImg from '../../assets/logo02.svg'
 import { FiClock, FiPower } from 'react-icons/fi'
 
-import { useAuth } from '../../hooks/auth'
 import api from '../../services/api'
+import { useAuth } from '../../hooks/auth'
+import { useToast } from '../../hooks/toast'
 
 interface MonthAvailabilityItem {
   day: number
@@ -48,6 +49,7 @@ const Dashboard: React.FC = () => {
   >([])
 
   const { signOut, user } = useAuth()
+  const { addToast } = useToast()
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
     if (modifiers.available && !modifiers.disabled) setSelectedDate(day)
@@ -58,29 +60,43 @@ const Dashboard: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    api
-      .get(`/providers/${user.id}/month-availability`, {
-        params: {
-          year: currentMonth.getFullYear(),
-          month: currentMonth.getMonth() + 1
-        }
-      })
-      .then(response => {
+    async function getMonthAvailability(): Promise<void> {
+      try {
+        const response = await api.get(
+          `/providers/${user.id}/month-availability`,
+          {
+            params: {
+              year: currentMonth.getFullYear(),
+              month: currentMonth.getMonth() + 1
+            }
+          }
+        )
+
         setMonthAvailability(response.data)
-      })
-  }, [currentMonth, user])
+      } catch (err) {
+        addToast({
+          type: 'error',
+          title: 'Error.',
+          description: err.message
+        })
+      }
+    }
+
+    getMonthAvailability()
+  }, [currentMonth, user, addToast])
 
   useEffect(() => {
-    api
-      .get<Appointment[]>('/providers/me', {
-        params: {
-          year: selectedDate.getFullYear(),
-          month: selectedDate.getMonth() + 1,
-          day: selectedDate.getDate()
-        }
-      })
-      .then(response => {
-        const appointmentsFormatted = response.data.map(appointment => {
+    async function getAppointments(): Promise<void> {
+      try {
+        const appointments = await api.get<Appointment[]>('/providers/me', {
+          params: {
+            year: selectedDate.getFullYear(),
+            month: selectedDate.getMonth() + 1,
+            day: selectedDate.getDate()
+          }
+        })
+
+        const appointmentsFormatted = appointments.data.map(appointment => {
           return {
             ...appointment,
             hourFormatted: format(parseISO(appointment.date), 'HH:mm')
@@ -94,8 +110,17 @@ const Dashboard: React.FC = () => {
         })
 
         setAppointments(appointmentsFormatted)
-      })
-  }, [selectedDate])
+      } catch (err) {
+        addToast({
+          type: 'error',
+          title: 'Error.',
+          description: err.message
+        })
+      }
+    }
+
+    getAppointments()
+  }, [selectedDate, addToast])
 
   useEffect(() => {
     if (
