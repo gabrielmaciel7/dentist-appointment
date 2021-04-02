@@ -41,7 +41,7 @@ class ListProviderMonthAvailabilityService {
       const currentDate = new Date(Date.now())
       const compareDate = new Date(year, month - 1, day)
 
-      const hourEnd = 17
+      const hourEnd = 20
       const hoursAvailablePerDay = 10
 
       const appointmentsInDay = appointments.filter(appointment =>

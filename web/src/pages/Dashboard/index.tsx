@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react'
 
-import { isToday, parseISO, format } from 'date-fns'
+import { isToday, isAfter, parseISO, format } from 'date-fns'
 import DayPicker, { DayModifiers } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 
@@ -169,6 +169,14 @@ const Dashboard: React.FC = () => {
     })
   }, [selectedDate])
 
+  const nextAppointment = useMemo(() => {
+    if (isToday(selectedDate)) {
+      return appointments.find(appointment =>
+        isAfter(parseISO(appointment.date), new Date())
+      )
+    }
+  }, [selectedDate, appointments])
+
   return (
     <Container>
       <Header>
@@ -209,17 +217,32 @@ const Dashboard: React.FC = () => {
       <Content>
         <Schedule>
           <NextAppointment>
+            {nextAppointment && (
+              <>
+                <strong>Next Appointment</strong>
+                <Appointment className="nextToday">
+                  <img
+                    src={
+                      nextAppointment.user.avatar_url
+                        ? nextAppointment.user.avatar_url
+                        : 'https://github.com/github.png'
+                    }
+                    alt={nextAppointment.user.name}
+                  />
+
+                  <p>{nextAppointment.user.name}</p>
+                  <span>
+                    <FiClock />
+                    {nextAppointment.hourFormatted}
+                  </span>
+                </Appointment>
+              </>
+            )}
+
             <strong>Appointments</strong>
 
-            {appointments.map((appointment, index) => (
-              <Appointment
-                key={appointment.id}
-                className={
-                  isToday(parseISO(appointment.date)) && index === 0
-                    ? 'nextToday'
-                    : ''
-                }
-              >
+            {appointments.map(appointment => (
+              <Appointment key={appointment.id}>
                 <img
                   src={
                     appointment.user.avatar_url
