@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react'
 
+import { isToday, parseISO, format } from 'date-fns'
 import DayPicker, { DayModifiers } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 
@@ -27,10 +28,20 @@ interface MonthAvailabilityItem {
   available: boolean
 }
 
+interface Appointment {
+  id: string
+  date: string
+  hourFormatted: string
+  user: {
+    name: string
+    avatar_url: string
+  }
+}
+
 const Dashboard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(new Date())
-
   const [currentMonth, setCurrentMonth] = useState(new Date())
+  const [appointments, setAppointments] = useState<Appointment[]>([])
 
   const [monthAvailability, setMonthAvailability] = useState<
     MonthAvailabilityItem[]
@@ -39,7 +50,7 @@ const Dashboard: React.FC = () => {
   const { signOut, user } = useAuth()
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
-    if (modifiers.available) setSelectedDate(day)
+    if (modifiers.available && !modifiers.disabled) setSelectedDate(day)
   }, [])
 
   const handleMonthChange = useCallback((month: Date) => {
@@ -58,6 +69,33 @@ const Dashboard: React.FC = () => {
         setMonthAvailability(response.data)
       })
   }, [currentMonth, user])
+
+  useEffect(() => {
+    api
+      .get<Appointment[]>('/providers/me', {
+        params: {
+          year: selectedDate.getFullYear(),
+          month: selectedDate.getMonth() + 1,
+          day: selectedDate.getDate()
+        }
+      })
+      .then(response => {
+        const appointmentsFormatted = response.data.map(appointment => {
+          return {
+            ...appointment,
+            hourFormatted: format(parseISO(appointment.date), 'HH:mm')
+          }
+        })
+
+        appointmentsFormatted.sort((a, b) => {
+          if (Date.parse(a.date) > Date.parse(b.date)) return 1
+          if (Date.parse(a.date) < Date.parse(b.date)) return -1
+          return 0
+        })
+
+        setAppointments(appointmentsFormatted)
+      })
+  }, [selectedDate])
 
   useEffect(() => {
     if (
@@ -97,6 +135,15 @@ const Dashboard: React.FC = () => {
     return dates
   }, [currentMonth, monthAvailability])
 
+  const selectedDateAsText = useMemo(() => {
+    return selectedDate.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  }, [selectedDate])
+
   return (
     <Container>
       <Header>
@@ -130,15 +177,7 @@ const Dashboard: React.FC = () => {
       <Title>
         <h1>Schedules</h1>
         <p>
-          {' '}
-          <span>
-            {selectedDate.toLocaleDateString('en-US', {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
-          </span>
+          <span>{selectedDateAsText}</span>
         </p>
       </Title>
 
@@ -147,42 +186,31 @@ const Dashboard: React.FC = () => {
           <NextAppointment>
             <strong>Appointments</strong>
 
-            <Appointment>
-              <img
-                src="https://github.com/gabrielmaciel7.png"
-                alt="Gabriel Maciel"
-              />
+            {appointments.map((appointment, index) => (
+              <Appointment
+                key={appointment.id}
+                className={
+                  isToday(parseISO(appointment.date)) && index === 0
+                    ? 'nextToday'
+                    : ''
+                }
+              >
+                <img
+                  src={
+                    appointment.user.avatar_url
+                      ? appointment.user.avatar_url
+                      : 'https://github.com/github.png'
+                  }
+                  alt={appointment.user.name}
+                />
 
-              <p>Gabriel Maciel</p>
-              <span>
-                <FiClock />
-                11:00
-              </span>
-            </Appointment>
-            <Appointment>
-              <img
-                src="https://github.com/gabrielmaciel7.png"
-                alt="Gabriel Maciel"
-              />
-
-              <p>Gabriel Maciel</p>
-              <span>
-                <FiClock />
-                11:00
-              </span>
-            </Appointment>
-            <Appointment>
-              <img
-                src="https://github.com/gabrielmaciel7.png"
-                alt="Gabriel Maciel"
-              />
-
-              <p>Gabriel Maciel</p>
-              <span>
-                <FiClock />
-                11:00
-              </span>
-            </Appointment>
+                <p>{appointment.user.name}</p>
+                <span>
+                  <FiClock />
+                  {appointment.hourFormatted}
+                </span>
+              </Appointment>
+            ))}
           </NextAppointment>
         </Schedule>
 

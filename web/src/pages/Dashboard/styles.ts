@@ -152,7 +152,7 @@ export const NextAppointment = styled.div`
     font-weight: 400;
   }
 
-  div:first-of-type {
+  .nextToday {
     margin-bottom: 48px;
     font-weight: bold;
 
