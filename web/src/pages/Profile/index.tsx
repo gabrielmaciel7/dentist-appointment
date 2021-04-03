@@ -11,7 +11,7 @@ import { useAuth } from '../../hooks/auth'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
-import { Container, Content, AvatarInput } from './styles'
+import { Display, Container, Content, AvatarInput } from './styles'
 
 import getMessage from '../../utils/getMessage'
 import getValidationErrors from '../../utils/getValidationErrors'
@@ -93,61 +93,63 @@ const Profile: React.FC = () => {
   )
 
   return (
-    <Container>
-      <header>
-        <div>
-          <Link to="/dashboard">
-            <FiArrowLeft />
-            Back to dashboard
-          </Link>
-        </div>
-      </header>
+    <Display>
+      <Container>
+        <header>
+          <div>
+            <Link to="/dashboard">
+              <FiArrowLeft />
+              <p>Back to dashboard</p>
+            </Link>
+          </div>
+        </header>
 
-      <Content>
-        <Form
-          ref={formRef}
-          initialData={{
-            name: user.name,
-            email: user.email
-          }}
-          onSubmit={handleSubmit}
-        >
-          <AvatarInput>
-            <img src={user.avatar_url} alt={user.name} />
-            <button type="button">
-              <FiCamera />
-            </button>
-          </AvatarInput>
+        <Content>
+          <Form
+            ref={formRef}
+            initialData={{
+              name: user.name,
+              email: user.email
+            }}
+            onSubmit={handleSubmit}
+          >
+            <AvatarInput>
+              <img src={user.avatar_url} alt={user.name} />
+              <button type="button">
+                <FiCamera />
+              </button>
+            </AvatarInput>
 
-          <h1>My profile</h1>
+            <h1>My profile</h1>
 
-          <Input name="name" placeholder="Name" icon={FiUser} />
-          <Input name="email" placeholder="E-mail" icon={FiMail} />
-          <Input
-            name="old_password"
-            type="password"
-            placeholder="Old password"
-            icon={FiLock}
-          />
-          <Input
-            name="password"
-            type="password"
-            placeholder="New password"
-            icon={FiLock}
-          />
-          <Input
-            name="password_confirmation"
-            type="password"
-            placeholder="New password confirmation"
-            icon={FiLock}
-          />
+            <Input name="name" placeholder="Name" icon={FiUser} />
+            <Input name="email" placeholder="E-mail" icon={FiMail} />
+            <Input
+              name="old_password"
+              type="password"
+              placeholder="Old password"
+              icon={FiLock}
+            />
+            <Input
+              name="password"
+              type="password"
+              placeholder="New password"
+              icon={FiLock}
+            />
+            <Input
+              name="password_confirmation"
+              type="password"
+              placeholder="New password confirmation"
+              icon={FiLock}
+            />
 
-          <Button type="submit" loading={loading}>
-            Confirm changes
-          </Button>
-        </Form>
-      </Content>
-    </Container>
+            <Button type="submit" loading={loading}>
+              Confirm changes
+            </Button>
+          </Form>
+        </Content>
+      </Container>
+    </Display>
   )
 }
 

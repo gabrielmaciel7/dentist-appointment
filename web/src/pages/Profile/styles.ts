@@ -1,8 +1,16 @@
 import styled from 'styled-components'
 import { shade } from 'polished'
 
-export const Container = styled.div`
+export const Display = styled.div`
   height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+export const Container = styled.div`
+  width: 100vw;
 
   > header {
     display: flex;
@@ -11,7 +19,7 @@ export const Container = styled.div`
     height: 144px;
 
     div {
-      width: 90%;
+      width: 80%;
       max-width: 1120px;
       margin: 0 auto;
 
@@ -35,6 +43,12 @@ export const Container = styled.div`
           width: 24px;
           height: 24px;
           margin-right: 16px;
+        }
+
+        p {
+          @media (max-width: 700px) {
+            display: none;
+          }
         }
       }
     }
