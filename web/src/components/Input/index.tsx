@@ -43,6 +43,7 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
     <Container hasError={!!error} isFilled={isFilled}>
       {Icon && <Icon size={20} />}
       <input
+        name={name}
         onBlur={handleInputBlur}
         ref={inputRef}
         defaultValue={defaultValue}

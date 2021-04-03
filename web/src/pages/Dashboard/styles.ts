@@ -30,6 +30,10 @@ export const HeaderContent = styled.div`
     justify-content: space-between;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   button {
     margin-left: 32px;
     background: transparent;
@@ -60,6 +64,11 @@ export const Profile = styled.div`
     width: 56px;
     height: 56px;
     border-radius: 50%;
+    transition: 0.2s;
+
+    &:hover {
+      opacity: 0.9;
+    }
 
     @media (max-width: 500px) {
       width: 48px;
@@ -83,6 +92,11 @@ export const Profile = styled.div`
 
     strong {
       color: #84dcc6;
+      transition: 0.2s;
+
+      &:hover {
+        color: ${darken(-0.1, '#84dcc6')};
+      }
     }
   }
 `

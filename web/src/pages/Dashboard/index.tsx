@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react'
+import { Link } from 'react-router-dom'
 
 import { isToday, isAfter, parseISO, format } from 'date-fns'
 import DayPicker, { DayModifiers } from 'react-day-picker'
@@ -184,21 +185,16 @@ const Dashboard: React.FC = () => {
           <img src={logoImg} alt="Whiteeth" />
 
           <div>
-            <Profile>
-              <img
-                src={
-                  user.avatar_url
-                    ? user.avatar_url
-                    : 'https://github.com/github.png'
-                }
-                alt={user.name}
-              />
+            <Link to="/profile">
+              <Profile>
+                <img src={user.avatar_url} alt={user.name} />
 
-              <div>
-                <span>Welcome</span>
-                <strong>{user.name}</strong>
-              </div>
-            </Profile>
+                <div>
+                  <span>Welcome</span>
+                  <strong>{user.name}</strong>
+                </div>
+              </Profile>
+            </Link>
 
             <button type="button" onClick={signOut}>
               <FiPower />
@@ -222,11 +218,7 @@ const Dashboard: React.FC = () => {
                 <strong>Next Appointment</strong>
                 <Appointment className="nextToday">
                   <img
-                    src={
-                      nextAppointment.user.avatar_url
-                        ? nextAppointment.user.avatar_url
-                        : 'https://github.com/github.png'
-                    }
+                    src={nextAppointment.user.avatar_url}
                     alt={nextAppointment.user.name}
                   />
 
