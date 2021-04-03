@@ -12,7 +12,9 @@ api.interceptors.response.use(
     return response
   },
   error => {
-    if (error.response.status === 401) {
+    const token = localStorage.getItem('@Whiteeth:token')
+
+    if (error.response.status === 401 && token) {
       localStorage.removeItem('@Whiteeth:token')
       localStorage.removeItem('@Whiteeth:user')
 
@@ -20,7 +22,9 @@ api.interceptors.response.use(
     }
 
     throw new Error(
-      error.response.data.message || getMessage('server.internal_error')
+      error.response.data.message ||
+        error.response.message ||
+        getMessage('server.internal_error')
     )
   }
 )

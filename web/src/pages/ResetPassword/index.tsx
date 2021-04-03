@@ -82,8 +82,8 @@ const ResetPassword: React.FC = () => {
         addToast({
           type: 'error',
           title: 'Reset password error.',
-          description: err.response.data.message
-            ? err.response.data.message
+          description: err.message
+            ? err.message
             : getMessage('reset.password.error')
         })
       } finally {

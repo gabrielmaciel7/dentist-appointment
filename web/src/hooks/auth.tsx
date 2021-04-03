@@ -65,9 +65,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       setAuthData({ token, user })
     } catch (err) {
       throw new Error(
-        err.response.data.message
-          ? err.response.data.message
-          : getMessage('server.internal_error')
+        err.message ? err.message : getMessage('server.internal_error')
       )
     }
   }, [])
@@ -83,9 +81,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         })
       } catch (err) {
         throw new Error(
-          err.response.data.message
-            ? err.response.data.message
-            : getMessage('server.internal_error')
+          err.message ? err.message : getMessage('server.internal_error')
         )
       }
     },
@@ -113,6 +109,12 @@ export function useAuth(): AuthContextData {
 
   if (!context) {
     throw new Error(getMessage('context.auth.use_auth.error'))
+  }
+
+  if (context.user) {
+    context.user.avatar_url = context.user.avatar_url
+      ? context.user.avatar_url
+      : 'https://github.com/github.png'
   }
 
   return context

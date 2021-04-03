@@ -55,6 +55,7 @@ const SignUp: React.FC = () => {
         await schema.validate(data, { abortEarly: false })
 
         setLoading(true)
+
         await signUp({
           name: data.name,
           email: data.email,

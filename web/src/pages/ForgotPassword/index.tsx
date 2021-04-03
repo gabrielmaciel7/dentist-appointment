@@ -66,8 +66,8 @@ const ForgotPassword: React.FC = () => {
         addToast({
           type: 'error',
           title: 'Password recovery error.',
-          description: err.response.data.message
-            ? err.response.data.message
+          description: err.message
+            ? err.message
             : getMessage('server.internal_error')
         })
       } finally {
