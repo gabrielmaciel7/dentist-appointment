@@ -11,7 +11,9 @@ export default createGlobalStyle`
   body {
     background: linear-gradient(to bottom right, #edfff7, #fff);
     color: #000;
-    -webkit-font-smoothing: antialiased
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    width: 100vw;
   }
 
   body, input, button {

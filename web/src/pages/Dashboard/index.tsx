@@ -241,6 +241,8 @@ const Dashboard: React.FC = () => {
 
             <strong>Appointments</strong>
 
+            {appointments.length <= 0 && <p>No appointments.</p>}
+
             {appointments.map(appointment => (
               <Appointment key={appointment.id}>
                 <img

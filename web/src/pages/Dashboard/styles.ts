@@ -152,6 +152,11 @@ export const NextAppointment = styled.div`
     font-weight: 400;
   }
 
+  > p {
+    margin-top: 16px;
+    color: #28423c;
+  }
+
   .nextToday {
     margin-bottom: 48px;
     font-weight: bold;
