@@ -98,6 +98,9 @@ const Dashboard: React.FC = () => {
         })
 
         const appointmentsFormatted = appointments.data.map(appointment => {
+          appointment.user.avatar_url =
+            appointment.user.avatar_url ?? 'https://github.com/github.png'
+
           return {
             ...appointment,
             hourFormatted: format(parseISO(appointment.date), 'HH:mm')
@@ -238,11 +241,7 @@ const Dashboard: React.FC = () => {
             {appointments.map(appointment => (
               <Appointment key={appointment.id}>
                 <img
-                  src={
-                    appointment.user.avatar_url
-                      ? appointment.user.avatar_url
-                      : 'https://github.com/github.png'
-                  }
+                  src={appointment.user.avatar_url}
                   alt={appointment.user.name}
                 />
 
