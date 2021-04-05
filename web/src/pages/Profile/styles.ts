@@ -7,6 +7,10 @@ export const Display = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-height: 600px) {
+    height: 100vw;
+  }
 `
 
 export const Container = styled.div`

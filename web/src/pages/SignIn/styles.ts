@@ -20,6 +20,10 @@ export const Container = styled.div`
 
   display: flex;
   align-items: stretch;
+
+  @media (max-height: 600px) {
+    height: 100vw;
+  }
 `
 
 export const Content = styled.div`
