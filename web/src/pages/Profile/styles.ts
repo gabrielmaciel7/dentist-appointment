@@ -18,7 +18,7 @@ export const Container = styled.div`
     justify-content: center;
     height: 144px;
 
-    div {
+    > div {
       width: 80%;
       max-width: 1120px;
       margin: 0 auto;
@@ -26,8 +26,6 @@ export const Container = styled.div`
       > a {
         color: #000;
         text-decoration: none;
-        display: flex;
-        align-items: center;
         margin-top: 32px;
 
         text-decoration: none;
@@ -39,16 +37,32 @@ export const Container = styled.div`
           color: ${shade(0.3, '#28423C')};
         }
 
+        div {
+          display: flex;
+          align-items: center;
+
+          svg {
+            width: 24px;
+            height: 24px;
+            margin-right: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 700px) {
+    header > div {
+      width: 90%;
+
+      a div {
         svg {
-          width: 24px;
-          height: 24px;
-          margin-right: 16px;
+          position: relative;
+          z-index: 5;
         }
 
         p {
-          @media (max-width: 700px) {
-            display: none;
-          }
+          display: none;
         }
       }
     }

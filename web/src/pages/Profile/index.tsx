@@ -98,8 +98,10 @@ const Profile: React.FC = () => {
         <header>
           <div>
             <Link to="/dashboard">
-              <FiArrowLeft />
-              <p>Back to dashboard</p>
+              <div>
+                <FiArrowLeft />
+                <p>Back to dashboard</p>
+              </div>
             </Link>
           </div>
         </header>
