@@ -13,7 +13,7 @@ export default createGlobalStyle`
     color: #000;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
-    width: 100vw;
+    max-width: 100vw;
   }
 
   body, input, button {
