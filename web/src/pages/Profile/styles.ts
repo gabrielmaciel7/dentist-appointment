@@ -74,7 +74,7 @@ export const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: -168px auto 0;
+  margin: -184px auto 0;
 
   max-width: 700px;
 
