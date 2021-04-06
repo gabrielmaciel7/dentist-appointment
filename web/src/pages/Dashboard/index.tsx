@@ -25,6 +25,9 @@ import api from '../../services/api'
 import { useAuth } from '../../hooks/auth'
 import { useToast } from '../../hooks/toast'
 
+import CalendarLoader from '../../components/ContentLoaders/Dashboard/CalendarLoader'
+import AppointmentLoader from '../../components/ContentLoaders/Dashboard/AppointmentLoader'
+
 interface MonthAvailabilityItem {
   day: number
   available: boolean
@@ -44,6 +47,9 @@ const Dashboard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [currentMonth, setCurrentMonth] = useState(new Date())
   const [appointments, setAppointments] = useState<Appointment[]>([])
+
+  const [calendarLoading, setCalendarLoading] = useState(true)
+  const [appointmentLoading, setAppointmentLoading] = useState(true)
 
   const [monthAvailability, setMonthAvailability] = useState<
     MonthAvailabilityItem[]
@@ -84,6 +90,7 @@ const Dashboard: React.FC = () => {
     }
 
     getMonthAvailability()
+    setCalendarLoading(false)
   }, [currentMonth, user, addToast])
 
   useEffect(() => {
@@ -124,6 +131,7 @@ const Dashboard: React.FC = () => {
     }
 
     getAppointments()
+    setAppointmentLoading(false)
   }, [selectedDate, addToast])
 
   useEffect(() => {
@@ -216,7 +224,7 @@ const Dashboard: React.FC = () => {
       <Content>
         <Schedule>
           <NextAppointment>
-            {nextAppointment && (
+            {!appointmentLoading && nextAppointment && (
               <>
                 <strong>Next Appointment</strong>
                 <Appointment className="nextToday">
@@ -236,36 +244,54 @@ const Dashboard: React.FC = () => {
 
             <strong>Appointments</strong>
 
-            {appointments.length <= 0 && <p>No appointments.</p>}
+            {appointmentLoading ? (
+              <div
+                style={{
+                  marginTop: 32,
+                  display: 'flex',
+                  flexDirection: 'column'
+                }}
+              >
+                <AppointmentLoader />
+                <AppointmentLoader />
+              </div>
+            ) : (
+              appointments.length <= 0 && <p>No appointments.</p>
+            )}
 
-            {appointments.map(appointment => (
-              <Appointment key={appointment.id}>
-                <img
-                  src={appointment.user.avatar_url}
-                  alt={appointment.user.name}
-                />
+            {!appointmentLoading &&
+              appointments.map(appointment => (
+                <Appointment key={appointment.id}>
+                  <img
+                    src={appointment.user.avatar_url}
+                    alt={appointment.user.name}
+                  />
 
-                <p>{appointment.user.name}</p>
-                <span>
-                  <FiClock />
-                  {appointment.hourFormatted}
-                </span>
-              </Appointment>
-            ))}
+                  <p>{appointment.user.name}</p>
+                  <span>
+                    <FiClock />
+                    {appointment.hourFormatted}
+                  </span>
+                </Appointment>
+              ))}
           </NextAppointment>
         </Schedule>
 
         <Calendar>
-          <DayPicker
-            fromMonth={new Date()}
-            disabledDays={[{ daysOfWeek: [0, 6] }, ...disabledDays]}
-            modifiers={{
-              available: { daysOfWeek: [1, 2, 3, 4, 5] }
-            }}
-            selectedDays={selectedDate}
-            onDayClick={handleDateChange}
-            onMonthChange={handleMonthChange}
-          />
+          {calendarLoading ? (
+            <CalendarLoader />
+          ) : (
+            <DayPicker
+              fromMonth={new Date()}
+              disabledDays={[{ daysOfWeek: [0, 6] }, ...disabledDays]}
+              modifiers={{
+                available: { daysOfWeek: [1, 2, 3, 4, 5] }
+              }}
+              selectedDays={selectedDate}
+              onDayClick={handleDateChange}
+              onMonthChange={handleMonthChange}
+            />
+          )}
         </Calendar>
       </Content>
     </Container>

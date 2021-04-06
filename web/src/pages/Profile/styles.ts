@@ -56,19 +56,21 @@ export const Container = styled.div`
   }
 
   @media (max-width: 700px) {
+    header {
+      svg {
+        position: relative;
+        z-index: 5;
+      }
+
+      p {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 400px) {
     header > div {
       width: 90%;
-
-      a div {
-        svg {
-          position: relative;
-          z-index: 5;
-        }
-
-        p {
-          display: none;
-        }
-      }
     }
   }
 `

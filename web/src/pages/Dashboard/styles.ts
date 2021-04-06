@@ -234,7 +234,6 @@ export const Appointment = styled.div`
 
 export const Calendar = styled.aside`
   width: 380px;
-  margin-top: 48px;
 
   @media (max-width: 1024px) {
     width: 350px;
