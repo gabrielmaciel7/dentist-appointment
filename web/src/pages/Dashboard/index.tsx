@@ -89,6 +89,7 @@ const Dashboard: React.FC = () => {
       }
     }
 
+    setCalendarLoading(true)
     getMonthAvailability()
     setCalendarLoading(false)
   }, [currentMonth, user, addToast])
@@ -130,6 +131,7 @@ const Dashboard: React.FC = () => {
       }
     }
 
+    setAppointmentLoading(true)
     getAppointments()
     setAppointmentLoading(false)
   }, [selectedDate, addToast])
