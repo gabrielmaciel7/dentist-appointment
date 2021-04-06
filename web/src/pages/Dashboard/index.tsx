@@ -69,6 +69,8 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     async function getMonthAvailability(): Promise<void> {
       try {
+        setCalendarLoading(true)
+
         const response = await api.get(
           `/providers/${user.id}/month-availability`,
           {
@@ -89,7 +91,6 @@ const Dashboard: React.FC = () => {
       }
     }
 
-    setCalendarLoading(true)
     getMonthAvailability()
     setCalendarLoading(false)
   }, [currentMonth, user, addToast])
@@ -97,6 +98,8 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     async function getAppointments(): Promise<void> {
       try {
+        setAppointmentLoading(true)
+
         const appointments = await api.get<Appointment[]>('/providers/me', {
           params: {
             year: selectedDate.getFullYear(),
@@ -131,7 +134,6 @@ const Dashboard: React.FC = () => {
       }
     }
 
-    setAppointmentLoading(true)
     getAppointments()
     setAppointmentLoading(false)
   }, [selectedDate, addToast])
