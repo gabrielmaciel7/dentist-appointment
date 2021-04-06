@@ -82,6 +82,7 @@ const Dashboard: React.FC = () => {
         )
 
         setMonthAvailability(response.data)
+        setCalendarLoading(false)
       } catch (err) {
         addToast({
           type: 'error',
@@ -92,7 +93,6 @@ const Dashboard: React.FC = () => {
     }
 
     getMonthAvailability()
-    setCalendarLoading(false)
   }, [currentMonth, user, addToast])
 
   useEffect(() => {
@@ -125,6 +125,7 @@ const Dashboard: React.FC = () => {
         })
 
         setAppointments(appointmentsFormatted)
+        setAppointmentLoading(false)
       } catch (err) {
         addToast({
           type: 'error',
@@ -135,7 +136,6 @@ const Dashboard: React.FC = () => {
     }
 
     getAppointments()
-    setAppointmentLoading(false)
   }, [selectedDate, addToast])
 
   useEffect(() => {
