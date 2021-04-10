@@ -249,7 +249,7 @@ const Dashboard: React.FC = () => {
             {appointmentLoading ? (
               <div
                 style={{
-                  marginTop: 32,
+                  marginTop: 24,
                   display: 'flex',
                   flexDirection: 'column'
                 }}
