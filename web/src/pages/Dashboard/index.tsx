@@ -69,8 +69,6 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     async function getMonthAvailability(): Promise<void> {
       try {
-        setCalendarLoading(true)
-
         const response = await api.get(
           `/providers/${user.id}/month-availability`,
           {
