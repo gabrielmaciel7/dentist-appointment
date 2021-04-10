@@ -176,7 +176,7 @@ export const NextAppointment = styled.div`
   }
 
   > p {
-    margin-top: 32px;
+    margin-top: 24px;
     color: #28423c;
 
     animation: fadeIn 0.3s;
