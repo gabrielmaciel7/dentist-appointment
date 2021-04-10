@@ -1,7 +1,16 @@
 import styled from 'styled-components'
 import { darken } from 'polished'
 
-export const Container = styled.div``
+export const Container = styled.div`
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+`
 
 export const Header = styled.header`
   padding: 24px 0;
@@ -167,8 +176,10 @@ export const NextAppointment = styled.div`
   }
 
   > p {
-    margin-top: 16px;
+    margin-top: 32px;
     color: #28423c;
+
+    animation: fadeIn 0.3s;
   }
 
   .nextToday {
@@ -203,6 +214,8 @@ export const Appointment = styled.div`
   border-radius: 10px;
   margin-top: 24px;
   position: relative;
+
+  animation: fadeIn 0.3s;
 
   img {
     width: 80px;
@@ -252,6 +265,8 @@ export const Calendar = styled.aside`
   .DayPicker {
     background: #28423c;
     border-radius: 10px;
+
+    animation: fadeIn 0.3s;
   }
   .DayPicker-wrapper {
     padding-bottom: 0;

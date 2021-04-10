@@ -81,8 +81,10 @@ const Dashboard: React.FC = () => {
           }
         )
 
-        setMonthAvailability(response.data)
-        setCalendarLoading(false)
+        setTimeout(() => {
+          setMonthAvailability(response.data)
+          setCalendarLoading(false)
+        }, 2000)
       } catch (err) {
         addToast({
           type: 'error',
@@ -124,8 +126,10 @@ const Dashboard: React.FC = () => {
           return 0
         })
 
-        setAppointments(appointmentsFormatted)
-        setAppointmentLoading(false)
+        setTimeout(() => {
+          setAppointments(appointmentsFormatted)
+          setAppointmentLoading(false)
+        }, 2000)
       } catch (err) {
         addToast({
           type: 'error',
