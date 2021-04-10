@@ -52,13 +52,15 @@ const SignUp: React.FC = () => {
             .required(getMessage('signup.password_confirmation.required'))
         })
 
+        data.email = data.email.trim()
+
         await schema.validate(data, { abortEarly: false })
 
         setLoading(true)
 
         await signUp({
           name: data.name,
-          email: data.email,
+          email: data.email.toLowerCase(),
           password: data.password,
           password_confirmation: data.password_confirmation
         })

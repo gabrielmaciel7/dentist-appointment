@@ -43,10 +43,15 @@ const SignIn: React.FC = () => {
           password: Yup.string().min(4, getMessage('signin.password.invalid'))
         })
 
+        data.email = data.email.trim()
+
         await schema.validate(data, { abortEarly: false })
 
         setLoading(true)
-        await signIn({ email: data.email, password: data.password })
+        await signIn({
+          email: data.email.toLowerCase(),
+          password: data.password
+        })
 
         history.push('/dashboard')
 
