@@ -42,6 +42,8 @@
   "profile.update.email.already_used": "Email already in use.",
   "profile.update.old_password.required": "You need to inform the old password to set a new password.",
   "profile.update.old_password.incorrect": "Old password does not match.",
+  "profile.update.password.invalid": "Password must be at least 4 digits. If you don't want to change the password, clear the old password.",
+  "profile.update.success": "Profile successfully updated.",
 
   "profile.show.user.not_found": "User not found."
 }

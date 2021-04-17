@@ -20,6 +20,7 @@ import api from '../../services/api'
 interface ProfileFormData {
   name: string
   email: string
+  old_password: string
   password: string
   password_confirmation: string
 }
@@ -42,35 +43,53 @@ const Profile: React.FC = () => {
           email: Yup.string()
             .required(getMessage('signup.email.required'))
             .email(getMessage('signup.email.invalid')),
-          old_password: Yup.string().min(
-            4,
-            getMessage('signup.password.invalid')
-          ),
-          password: Yup.string().min(4, getMessage('signup.password.invalid')),
-          password_confirmation: Yup.string()
-            .oneOf(
-              [Yup.ref('password'), undefined],
-              getMessage('signup.password_confirmation.invalid')
-            )
-            .required(getMessage('signup.password_confirmation.required'))
+          old_password: Yup.string(),
+          password: data.old_password
+            ? Yup.string().min(4, getMessage('profile.update.password.invalid'))
+            : Yup.string(),
+          password_confirmation: Yup.string().oneOf(
+            [Yup.ref('password'), undefined],
+            getMessage('signup.password_confirmation.invalid')
+          )
         })
 
         await schema.validate(data, { abortEarly: false })
 
-        setLoading(true)
-        await signUp({
-          name: data.name,
-          email: data.email,
-          password: data.password,
-          password_confirmation: data.password_confirmation
-        })
+        const {
+          name,
+          email,
+          old_password,
+          password,
+          password_confirmation
+        } = data
 
-        history.push('/')
+        const formData = {
+          name,
+          email,
+          ...(old_password
+            ? {
+                // eslint-disable-next-line indent
+                old_password,
+                // eslint-disable-next-line indent
+                password,
+                // eslint-disable-next-line indent
+                password_confirmation
+                // eslint-disable-next-line indent
+              }
+            : {})
+        }
+
+        setLoading(true)
+        const response = await api.put('/profile', formData)
+
+        updateUser(response.data)
+
+        history.push('/dashboard')
 
         addToast({
           type: 'success',
-          title: 'Successful registration.',
-          description: getMessage('signup.success')
+          title: 'Successful update.',
+          description: getMessage('profile.update.success')
         })
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -83,7 +102,7 @@ const Profile: React.FC = () => {
 
         addToast({
           type: 'error',
-          title: 'User creation error.',
+          title: 'Update error.',
           description: err.message
         })
       } finally {
