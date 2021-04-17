@@ -13,6 +13,7 @@
   "signup.success": "You can now enter the application.",
 
   "users.update.avatar.auth_error": "Only authenticated users can change avatar.",
+  "users.update.avatar.success": "Avatar updated successfully.",
 
   "signin.email.required": "Email is required.",
   "signin.email.invalid": "Invalid email.",
@@ -35,5 +36,12 @@
   "reset.password.error": "An error occurred while resetting the password.",
   "reset.password.invalid": "Password must be at least 4 digits.",
   "reset.password_confirmation.required": "Password confirmation is required.",
-  "reset.password_confirmation.invalid": "Password confirmation must be equal the password."
+  "reset.password_confirmation.invalid": "Password confirmation must be equal the password.",
+
+  "profile.update.user.not_found": "User not found.",
+  "profile.update.email.already_used": "Email already in use.",
+  "profile.update.old_password.required": "You need to inform the old password to set a new password.",
+  "profile.update.old_password.incorrect": "Old password does not match.",
+
+  "profile.show.user.not_found": "User not found."
 }
