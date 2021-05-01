@@ -1,7 +1,5 @@
-import { string } from '@hapi/joi'
-
 interface IMailConfig {
-  driver: 'ethereal' | 'ses'
+  driver: 'ethereal' | 'ses' | 'gmail'
 
   default: {
     from: {

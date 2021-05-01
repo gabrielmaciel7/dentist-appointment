@@ -6,10 +6,12 @@ import IMailProvider from '@shared/container/providers/MailProvider/models/IMail
 
 import EtherealMailProvider from './implementations/EtherealMailProvider'
 import SESMailProvider from './implementations/SESMailProvider'
+import GMailProvider from './implementations/GMailProvider'
 
 const providers = {
   ethereal: container.resolve(EtherealMailProvider),
-  ses: container.resolve(SESMailProvider)
+  ses: container.resolve(SESMailProvider),
+  gmail: container.resolve(GMailProvider)
 }
 
 container.registerInstance<IMailProvider>(
